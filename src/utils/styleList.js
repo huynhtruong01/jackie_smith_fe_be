@@ -1,0 +1,17 @@
+export const styleList = [
+    'Monogram',
+    'Simona',
+    'Mini Miranda',
+    'Gotham',
+    'Leather Flora',
+    'Emma',
+    'Billeteras',
+    'Relojes',
+    'Tapabocas',
+    'Jeans',
+    'T-shirt',
+    'Sweatshirt',
+    'Jackets',
+    'Denim',
+    'Sneaker',
+]
