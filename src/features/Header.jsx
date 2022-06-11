@@ -173,6 +173,9 @@ function Header() {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
+                                        <MenuItem onClick={handleClose}>
+                                            <Link to="/account">Your account</Link>
+                                        </MenuItem>
                                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                     </Menu>
                                 </Box>

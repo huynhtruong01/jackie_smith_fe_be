@@ -42,6 +42,13 @@ export const formatCapitalize = (str) => {
         .trim()
 }
 
+export const formatString = (str) => {
+    return str
+        .split(' ')
+        .filter((x) => !!x && x.length >= 2)
+        .join(' ')
+}
+
 export const getNameUser = (str) => {
     return str
         .split(' ')

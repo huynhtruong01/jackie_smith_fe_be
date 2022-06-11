@@ -11,6 +11,8 @@ import { grey } from '@mui/material/colors'
 import Cart from './features/Cart'
 import Login from './features/Auth/pages/Login'
 import Invoice from './features/Invoice'
+import AccountInfo from './features/AccountInfo'
+import ChangePassword from './features/ChangePassword'
 
 function App() {
     return (
@@ -24,6 +26,9 @@ function App() {
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
                     <Route path="invoice" element={<Invoice />} />
+                    <Route path="account" element={<AccountInfo />} />
+                    <Route path="change-password" element={<ChangePassword />} />
+                    <Route path="setting-account" element={<ChangePassword />} />
                 </Routes>
             </Box>
             <Footer />
