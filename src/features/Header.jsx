@@ -60,10 +60,6 @@ function Header() {
             link: `${user ? '/our-community' : '/login'}`,
             name: 'Our Community',
         },
-        {
-            link: `${user ? '/gift-card' : '/login'}`,
-            name: 'E-Gift Card',
-        },
     ]
 
     return (
