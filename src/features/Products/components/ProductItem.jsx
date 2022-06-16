@@ -1,14 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Box, Typography } from '@mui/material'
-import ButtonOrange from '../../../components/ButtonOrange'
-import { Link, useLocation } from 'react-router-dom'
-import { orange, grey } from '@mui/material/colors'
-import { formatPrice } from '../../../utils/common'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { useDispatch, useSelector } from 'react-redux'
-import { addCart, showCart } from '../../Cart/cartSlice'
-import cartsApi from '../../../api/cartsApi'
+import { Box, Typography } from '@mui/material'
+import { grey, orange } from '@mui/material/colors'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
+import ButtonOrange from '../../../components/ButtonOrange'
+import { formatPrice } from '../../../utils/common'
 
 ProductItem.propTypes = {}
 
