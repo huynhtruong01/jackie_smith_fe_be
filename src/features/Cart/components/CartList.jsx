@@ -23,17 +23,21 @@ CartList.propTypes = {}
 function CartList({ cartList = [], onRemoveClick = null }) {
     const user = useSelector((state) => state.user2.currentUser)
     const handleRemoveCart = (id, name) => {
+        console.log(id)
+        // return
         if (!onRemoveClick) return
         onRemoveClick({ isOpen: true, id, name })
     }
 
-    const handleSubmit = async (product, quantity) => {
+    const handleSubmit = async (product, quantity, size) => {
         try {
             const cartItemDB = {
                 userId: user.user._id,
                 product: product._id,
                 quantity,
+                size,
             }
+
             await cartsApi.updateQuantity(cartItemDB)
         } catch (error) {
             throw new Error(error.response.data.message)
@@ -52,13 +56,14 @@ function CartList({ cartList = [], onRemoveClick = null }) {
                             <TableCell align="center">Price</TableCell>
                             <TableCell align="center">Promotion percent</TableCell>
                             <TableCell align="center">Quantity</TableCell>
+                            <TableCell align="center">Size</TableCell>
                             <TableCell align="center">Total price</TableCell>
                             <TableCell align="center">Option</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {cartList?.map((cart, index) => (
-                            <TableRow key={cart?.product?._id}>
+                            <TableRow key={index}>
                                 <TableCell
                                     align="center"
                                     sx={{
@@ -97,13 +102,14 @@ function CartList({ cartList = [], onRemoveClick = null }) {
                                 </TableCell>
                                 <TableCell align="center">
                                     <QuantityCartForm
-                                        id={cart?.product?._id}
+                                        id={cart?.id}
                                         quantity={cart?.quantity}
                                         onSubmit={(quantity) =>
-                                            handleSubmit(cart?.product, quantity)
+                                            handleSubmit(cart?.product, quantity, cart?.size)
                                         }
                                     />
                                 </TableCell>
+                                <TableCell align="center">{cart?.size}</TableCell>
                                 <TableCell
                                     align="center"
                                     sx={{
@@ -120,10 +126,7 @@ function CartList({ cartList = [], onRemoveClick = null }) {
                                 <TableCell align="center">
                                     <IconButton
                                         onClick={() =>
-                                            handleRemoveCart(
-                                                cart?.product?._id,
-                                                cart?.product?.name
-                                            )
+                                            handleRemoveCart(cart?.id, cart?.product?.name)
                                         }
                                     >
                                         <DeleteIcon

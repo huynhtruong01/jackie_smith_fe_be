@@ -6,10 +6,13 @@ import { orange, grey } from '@mui/material/colors'
 import { formatCapitalize, formatPrice } from '../../../utils/common'
 import QuantityForm from '../components/QuantityForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCart, showCart } from '../../Cart/cartSlice'
+import { setCartList, showCart } from '../../Cart/cartSlice'
 import cartsApi from '../../../api/cartsApi'
+import { clothingSizeList, sneakerSizeList } from '../../../utils/size'
 
 DetailPage.propTypes = {}
+
+const nameCategoriesList = ['clothing', 'sneaker']
 
 function DetailPage() {
     const [product, setProduct] = useState({})
@@ -33,12 +36,13 @@ function DetailPage() {
         getProduct()
     }, [params?.id])
 
-    const handleQuantitySubmit = async ({ quantity }) => {
+    const handleQuantitySubmit = async ({ quantity, size }) => {
         try {
             const cartItem = {
                 id: product._id,
                 product,
                 quantity,
+                size,
             }
 
             // add cart in db
@@ -46,11 +50,18 @@ function DetailPage() {
                 userId: user.user._id,
                 product: product?._id,
                 quantity,
+                size,
             })
+
+            console.log(cartItem)
+
+            const carts = await cartsApi.getById(user?.user?._id)
+
+            // dispatch cartList
+            dispatch(setCartList(carts.items))
 
             // add cart in redux
             dispatch(showCart())
-            dispatch(addCart(cartItem))
         } catch (error) {
             throw new Error(error.response.data.message)
         }
@@ -138,7 +149,21 @@ function DetailPage() {
                         <Typography variant="body1" mb="4px" fontWeight={600}>
                             Quantity
                         </Typography>
-                        <QuantityForm onSubmit={handleQuantitySubmit} />
+                        {product?.category?.name === 'clothing' && (
+                            <QuantityForm
+                                onSubmit={handleQuantitySubmit}
+                                menuList={clothingSizeList}
+                            />
+                        )}
+                        {product?.category?.name === 'sneaker' && (
+                            <QuantityForm
+                                onSubmit={handleQuantitySubmit}
+                                menuList={sneakerSizeList}
+                            />
+                        )}
+                        {!nameCategoriesList.includes(product?.category?.name) && (
+                            <QuantityForm onSubmit={handleQuantitySubmit} />
+                        )}
                     </Box>
                 </Box>
             </Box>

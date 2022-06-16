@@ -14,32 +14,7 @@ ProductItem.propTypes = {}
 
 function ProductItem({ product = {} }) {
     const { pathname } = useLocation()
-    const dispatch = useDispatch()
     const user = useSelector((state) => state.user2.currentUser)
-
-    const handleAddToCart = async () => {
-        try {
-            const cartItem = {
-                id: product?._id,
-                product,
-                quantity: 1,
-            }
-
-            // save cart into db
-            const cartItemDB = {
-                userId: user?.user?._id,
-                product: product?._id,
-                quantity: 1,
-            }
-            await cartsApi.add(cartItemDB)
-
-            // save cart into redux
-            dispatch(addCart(cartItem))
-            dispatch(showCart())
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <Box border={`1px solid ${grey[200]}`} borderRadius="5px" overflow="hidden">
@@ -118,8 +93,10 @@ function ProductItem({ product = {} }) {
                         </>
                     )}
                 </Box>
-                <Box onClick={handleAddToCart}>
-                    <ButtonOrange text="Add to cart" icon={ShoppingCartIcon} />
+                <Box>
+                    <Link to={`${pathname}/${product?._id}`}>
+                        <ButtonOrange text="Add to cart" icon={ShoppingCartIcon} />
+                    </Link>
                 </Box>
             </Box>
         </Box>

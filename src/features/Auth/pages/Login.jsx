@@ -13,6 +13,8 @@ import { loginAndSaveUser } from '../userSlice'
 
 Login.propTypes = {}
 
+const roleList = ['employee']
+
 function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -21,12 +23,18 @@ function Login() {
         try {
             const user = await authApi.login(value)
             const cart = await cartsApi.getByUserId(user.user._id)
+            console.log(user.user.role)
 
+            if (roleList.includes(user?.user?.role))
+                throw new Error('Not allow employee go to website shopping. Please sign up.')
+
+            // console.log(cart)
             if (cart) {
                 const cartList = cart.items.map((x) => ({
-                    id: x.product._id,
+                    id: x._id,
                     product: x.product,
                     quantity: x.quantity,
+                    size: x.size,
                 }))
                 dispatch(getCartFromDB(cartList))
                 dispatch(getIdCartFromDB(cart._id))
@@ -39,14 +47,16 @@ function Login() {
 
             toast.success(user.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             setTimeout(() => navigate('/'), 3000)
         } catch (error) {
-            toast.error(error.response.data.message, {
+            toast.error(error?.response?.data?.message || error.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
-            throw new Error(error.response.data.message)
+            throw new Error(error?.response?.data?.message || error.message)
         }
     }
 

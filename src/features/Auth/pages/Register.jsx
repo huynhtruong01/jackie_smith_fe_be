@@ -15,13 +15,16 @@ function Register() {
     const handleSubmit = async (value) => {
         try {
             const { message } = await authApi.register(value)
+
             toast.success(message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
             setTimeout(() => navigate('/login'), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
             throw new Error(error.response.data.message)
         }

@@ -27,7 +27,7 @@ function Cart() {
         const getCartId = async () => {
             try {
                 if (!idCart) {
-                    const cart = await cartsApi.getByUserId(user.user._id)
+                    const cart = await cartsApi.getByUserId(user?.user?._id)
                     dispatch(getIdCartFromDB(cart._id))
                 }
             } catch (error) {
@@ -86,11 +86,13 @@ function Cart() {
         }
     }
 
+    console.log(cartList)
+
     return (
         <Box p="16px 16px 32px">
             {user && (
                 <>
-                    {cartList.length > 0 && (
+                    {cartList?.length > 0 && (
                         <Box mb="22px" display="flex" justifyContent="space-between">
                             <Box
                                 sx={{
@@ -118,7 +120,7 @@ function Cart() {
                         </Box>
                     )}
                     <Box display="flex" gap="16px">
-                        {cartList.length === 0 && (
+                        {cartList?.length === 0 && (
                             <>
                                 <Box
                                     display="flex"
@@ -153,7 +155,7 @@ function Cart() {
                                 </Box>
                             </>
                         )}
-                        {cartList.length > 0 && (
+                        {cartList?.length > 0 && (
                             <>
                                 <Box flex={3.5}>
                                     <CartList cartList={cartList} onRemoveClick={handleOpenModal} />

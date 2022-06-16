@@ -188,7 +188,10 @@ function Header() {
                                     }}
                                 >
                                     <Link to="/cart">
-                                        <Badge badgeContent={totalQuantityCart || 0} color="error">
+                                        <Badge
+                                            badgeContent={totalQuantityCart || '0'}
+                                            color="error"
+                                        >
                                             <ShoppingCartIcon />
                                         </Badge>
                                     </Link>

@@ -13,6 +13,7 @@ import Login from './features/Auth/pages/Login'
 import Invoice from './features/Invoice'
 import AccountInfo from './features/AccountInfo'
 import ChangePassword from './features/ChangePassword'
+import ChangeInfo from './features/ChangeInfo'
 
 function App() {
     return (
@@ -28,7 +29,7 @@ function App() {
                     <Route path="invoice" element={<Invoice />} />
                     <Route path="account" element={<AccountInfo />} />
                     <Route path="change-password" element={<ChangePassword />} />
-                    <Route path="setting-account" element={<ChangePassword />} />
+                    <Route path="setting-account" element={<ChangeInfo />} />
                 </Routes>
             </Box>
             <Footer />

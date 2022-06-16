@@ -47,6 +47,8 @@ function CartTotal() {
                 totalQuantity: quantity,
                 date,
             }
+
+            console.log(orderItem)
             await ordersApi.add(orderItem)
 
             // delete cart of user into db
@@ -54,6 +56,12 @@ function CartTotal() {
 
             // reset cart into redux
             dispatch(resetCart())
+
+            // nofitication
+            toast.success('Order product successfully', {
+                autoClose: 2000,
+                theme: 'colored',
+            })
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,

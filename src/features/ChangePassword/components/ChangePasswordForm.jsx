@@ -52,11 +52,12 @@ function ChangePasswordForm({ onSubmit = null }) {
                     fontSize: '1.2rem',
                     color: orange[600],
                     fontWeight: 500,
+                    mb: '32px',
                 }}
             >
                 Change password
             </Typography>
-            <Box>
+            <Box mb="20px">
                 <PasswordField name="newPassword" label="New password" form={form} />
                 <PasswordField name="confirmPassword" label="Confirm password" form={form} />
             </Box>

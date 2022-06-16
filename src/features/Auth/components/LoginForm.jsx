@@ -35,7 +35,7 @@ function LoginForm({ onSubmit = null }) {
             await onSubmit(value)
             form.reset()
         } catch (error) {
-            console.log('Error: ', error)
+            console.log(error)
         }
     }
 
