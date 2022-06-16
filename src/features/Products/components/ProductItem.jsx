@@ -95,7 +95,7 @@ function ProductItem({ product = {} }) {
                 </Box>
                 <Box>
                     <Link to={`${pathname}/${product?._id}`}>
-                        <ButtonOrange text="Add to cart" icon={ShoppingCartIcon} />
+                        <ButtonOrange text="Read more" icon={ShoppingCartIcon} />
                     </Link>
                 </Box>
             </Box>
