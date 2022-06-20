@@ -9,12 +9,13 @@ function ProductClearAll({ filters = {}, onChange = null }) {
     const handleChange = () => {
         if (!onChange) return
 
-        const newFilters = { ...filters, page: 1, limit: 9, sort: 'salePrice' }
+        const newFilters = { ...filters, page: 1, limit: 12, sort: 'salePrice' }
         delete newFilters.category
         delete newFilters.style
         delete newFilters.color
         delete newFilters['salePrice[gte]']
         delete newFilters['salePrice[lte]']
+        delete newFilters['search']
 
         onChange(newFilters)
     }

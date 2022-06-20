@@ -11,13 +11,13 @@ function ProductList({ productList = [] }) {
             <Box
                 display="flex"
                 width="100%"
-                gap="20px"
+                gap="10px"
                 sx={{
                     flexFlow: 'row wrap',
                 }}
             >
                 {productList?.map((product) => (
-                    <Box key={product._id} width="calc(100%/3 - 20px)">
+                    <Box key={product._id} width="calc(100%/4 - 10px)">
                         <ProductItem product={product} />
                     </Box>
                 ))}

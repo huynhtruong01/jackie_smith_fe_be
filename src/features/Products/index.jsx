@@ -9,7 +9,7 @@ Products.propTypes = {}
 
 function Products() {
     return (
-        <Box p="20px">
+        <Box p="20px" pt="8px">
             <Routes>
                 <Route path="" element={<ListPage />} />
                 <Route path="/:id" element={<DetailPage />} />

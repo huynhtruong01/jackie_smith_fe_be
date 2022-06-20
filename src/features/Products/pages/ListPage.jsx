@@ -1,17 +1,21 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import { orange } from '@mui/material/colors'
 import React, { useEffect, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import categoriesApi from '../../../api/categoriesApi'
 import productsApi from '../../../api/productsApi'
 import { colorList } from '../../../utils/colorList'
+import { formatCapitalize } from '../../../utils/common'
 import { styleList } from '../../../utils/styleList'
 import FilterByPrice from '../components/Filters/FilterByPrice'
 import FilterSort from '../components/Filters/FilterSort'
 import ProductFilter from '../components/Filters/ProductFilter'
 import ProductFilterArr from '../components/Filters/ProductFilterArr'
 import ProductClearAll from '../components/ProductClearAll'
+import ProductEmpty from '../components/ProductEmpty'
 import ProductList from '../components/ProductList'
 import ProductPagination from '../components/ProductPagination'
+import ProductSearch from '../components/ProductSearch'
 
 ListPage.propTypes = {}
 
@@ -22,7 +26,7 @@ function ListPage() {
     const [filters, setFilters] = useState(() => {
         const value = searchParams.get('category')
         const initFilters = {
-            limit: 9,
+            limit: 12,
             page: 1,
             sort: 'salePrice',
         }
@@ -121,8 +125,16 @@ function ListPage() {
         setFilters((prev) => ({ ...prev, sort: value }))
     }
 
+    // filter search
+    const handleSearch = (value) => {
+        setFilters((prev) => ({ ...prev, search: formatCapitalize(value) }))
+    }
+
     return (
         <Box>
+            <Box mb="16px">
+                <ProductSearch onSubmit={handleSearch} />
+            </Box>
             <Box display="flex" gap="16px">
                 <Box flex={1} position="relative">
                     <Box
@@ -160,13 +172,18 @@ function ListPage() {
                     </Box>
                 </Box>
                 <Box flex={4} backgroundColor="#fff" p="12px" borderRadius="5px">
-                    <FilterSort filters={filters} onChange={handleSortChange} />
-                    <ProductList productList={productList} />
-                    <ProductPagination
-                        count={pagination}
-                        page={filters.page}
-                        onChange={handlePaginationChange}
-                    />
+                    {productList?.length > 0 && (
+                        <>
+                            <FilterSort filters={filters} onChange={handleSortChange} />
+                            <ProductList productList={productList} />
+                            <ProductPagination
+                                count={pagination}
+                                page={filters.page}
+                                onChange={handlePaginationChange}
+                            />
+                        </>
+                    )}
+                    {productList?.length === 0 && <ProductEmpty />}
                 </Box>
             </Box>
         </Box>
