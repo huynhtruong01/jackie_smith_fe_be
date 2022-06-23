@@ -9,7 +9,7 @@ function ProductSearch({ onSubmit = null }) {
     const [value, setValue] = useState('')
 
     const handleSearchChange = () => {
-        if (!onSubmit) return
+        if (!onSubmit || !value) return
         onSubmit(value)
         setValue('')
     }
