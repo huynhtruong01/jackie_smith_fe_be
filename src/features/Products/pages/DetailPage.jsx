@@ -67,6 +67,8 @@ function DetailPage() {
         }
     }
 
+    console.log(product)
+
     return (
         <Box>
             <Box display="flex" columnGap="22px">
@@ -142,7 +144,7 @@ function DetailPage() {
                                 borderRadius: '3px',
                             }}
                         >
-                            {!!product?.color && formatCapitalize(product?.color)}
+                            {!!product?.color && formatCapitalize(product?.color?.name)}
                         </Typography>
                     </Box>
                     <Box>

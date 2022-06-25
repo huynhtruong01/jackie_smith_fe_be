@@ -19,6 +19,7 @@ import { getNameUser } from '../utils/common'
 import { logout } from './Auth/userSlice'
 import { totalQuantity } from './Cart/cartSelector'
 import { hideCart, resetCart } from './Cart/cartSlice'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 Header.propTypes = {}
 
@@ -151,10 +152,13 @@ function Header() {
                                         aria-haspopup="true"
                                         aria-expanded={open ? 'true' : undefined}
                                         onClick={handleClick}
+                                        endIcon={<ArrowDropDownIcon />}
                                         sx={{
                                             color: orange[600],
+                                            backgroundColor: orange[50],
                                             '&:hover': {
-                                                backgroundColor: orange[50],
+                                                backgroundColor: orange[600],
+                                                color: '#fff',
                                             },
                                         }}
                                     >

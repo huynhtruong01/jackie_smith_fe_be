@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { orange, red } from '@mui/material/colors'
 import React from 'react'
-import { formatPrice } from '../../../utils/common'
+import { formatCapitalize, formatPrice } from '../../../utils/common'
 import QuantityCartForm from './QuantityCartForm'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Link } from 'react-router-dom'
@@ -101,15 +101,17 @@ function CartList({ cartList = [], onRemoveClick = null }) {
                                         : `-${cart?.product?.promotionPercent}%`}
                                 </TableCell>
                                 <TableCell align="center">
-                                    <QuantityCartForm
-                                        id={cart?.id}
-                                        quantity={cart?.quantity}
-                                        onSubmit={(quantity) =>
-                                            handleSubmit(cart?.product, quantity, cart?.size)
-                                        }
-                                    />
+                                    <Box display="flex" justifyContent="center" alignItems="center">
+                                        <QuantityCartForm
+                                            id={cart?.id}
+                                            quantity={cart?.quantity}
+                                            onSubmit={(quantity) =>
+                                                handleSubmit(cart?.product, quantity, cart?.size)
+                                            }
+                                        />
+                                    </Box>
                                 </TableCell>
-                                <TableCell align="center">{cart?.size}</TableCell>
+                                <TableCell align="center">{formatCapitalize(cart?.size)}</TableCell>
                                 <TableCell
                                     align="center"
                                     sx={{

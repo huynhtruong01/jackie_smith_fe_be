@@ -61,32 +61,43 @@ function LoginForm({ onSubmit = null }) {
                 type="submit"
                 fontSize="1.1rem"
             />
-            <Box mt="16px">
+            <Box
+                mt="8px"
+                textAlign="right"
+                sx={{
+                    a: {
+                        color: orange[600],
+
+                        '&:hover': {
+                            textDecoration: 'underline',
+                        },
+                    },
+                }}
+            >
+                <Link to="/forgot-password">
+                    <Typography fontSize="0.9rem">Forgot password?</Typography>
+                </Link>
+            </Box>
+            <Box mt="32px" textAlign="center">
                 <Typography
                     sx={{
                         color: grey[700],
                         a: {
                             display: 'inline',
+                            color: orange[400],
+                            fontWeight: 600,
+
+                            '&:hover': {
+                                color: orange[600],
+                                textDecoration: 'underline',
+                            },
                         },
                     }}
                 >
                     Dont't have an account?{' '}
-                    <Typography
-                        component="span"
-                        sx={{
-                            a: {
-                                color: orange[400],
-                                fontWeight: 600,
-
-                                '&:hover': {
-                                    color: orange[600],
-                                    textDecoration: 'underline',
-                                },
-                            },
-                        }}
-                    >
-                        <Link to="/register">Register</Link>
-                    </Typography>
+                    <Link to="/register">
+                        <Typography component="span">Register</Typography>
+                    </Link>
                 </Typography>
             </Box>
         </Box>

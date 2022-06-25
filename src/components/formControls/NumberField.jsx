@@ -1,9 +1,9 @@
 import { Box, TextField } from '@mui/material'
 import { Controller } from 'react-hook-form'
 
-InputField.propTypes = {}
+NumberField.propTypes = {}
 
-function InputField({ name, label, form, placeholder = '' }) {
+function NumberField({ name, label, form, placeholder = '' }) {
     const { control, formState } = form
     const error = formState.errors[name]
 
@@ -22,6 +22,7 @@ function InputField({ name, label, form, placeholder = '' }) {
                         error={!!error}
                         helperText={error?.message}
                         fullWidth
+                        type="number"
                     />
                 )}
             />
@@ -29,4 +30,4 @@ function InputField({ name, label, form, placeholder = '' }) {
     )
 }
 
-export default InputField
+export default NumberField

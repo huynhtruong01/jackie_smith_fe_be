@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Typography, FormGroup, FormControlLabel, Checkbox } from '@mui/material'
-import { orange } from '@mui/material/colors'
+import { grey, orange } from '@mui/material/colors'
+import { formatColor } from '../../../../utils/color'
+import { formatCapitalize } from '../../../../utils/common'
 
 ProductFilterArr.propTypes = {}
 
-function ProductFilterArr({ filters, title, data = [], onChange = null }) {
+function ProductFilterArr({ filters, title, data = [], onChange = null, isColor = false }) {
     const handleCheckboxChange = (e) => {
         if (!onChange) return
 
@@ -51,11 +53,11 @@ function ProductFilterArr({ filters, title, data = [], onChange = null }) {
                     />
                     {data?.map((x) => (
                         <FormControlLabel
-                            key={x}
+                            key={x._id}
                             control={
                                 <Checkbox
-                                    name={x.toLowerCase()}
-                                    checked={filters[title.toLowerCase()] === x.toLowerCase()}
+                                    name={x?._id}
+                                    checked={filters[title.toLowerCase()] === x?._id}
                                     onChange={handleCheckboxChange}
                                     sx={{
                                         color: orange[500],
@@ -65,7 +67,19 @@ function ProductFilterArr({ filters, title, data = [], onChange = null }) {
                                     }}
                                 />
                             }
-                            label={x}
+                            label={
+                                isColor ? (
+                                    <Box
+                                        backgroundColor={formatColor(x?.name)}
+                                        border={`1px solid ${grey[500]}`}
+                                        borderRadius="2px"
+                                        width="20px"
+                                        height="20px"
+                                    ></Box>
+                                ) : (
+                                    formatCapitalize(x?.name)
+                                )
+                            }
                         />
                     ))}
                 </FormGroup>

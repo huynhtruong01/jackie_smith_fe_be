@@ -1,29 +1,34 @@
 import { Box } from '@mui/material'
-import React from 'react'
+import { grey } from '@mui/material/colors'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import usersApi from '../../api/usersApi'
-import ChangePasswordForm from './components/ChangePasswordForm'
+import usersApi from '../../../api/usersApi'
+import ChangePasswordForm from '../components/ChangePasswordUserForm'
 
-ChangePassword.propTypes = {}
+ChangePasswordUser.propTypes = {}
 
-function ChangePassword(props) {
-    const user = useSelector((state) => state?.user2?.currentUser.user)
+function ChangePasswordUser() {
+    const user = useSelector((state) => state?.userTemporary?.temporaryUser)
     const navigate = useNavigate()
 
     const handleSubmit = async (values) => {
         try {
-            await usersApi.update({ ...user, password: values.newPassword })
-            toast.success('Change password successfully 😁😆', {
+            const { message } = await usersApi.changePassword({
+                ...user,
+                password: values.newPassword,
+            })
+
+            toast.success(message, {
                 autoClose: 2000,
                 theme: 'colored',
             })
 
-            setTimeout(() => navigate('/'), 3000)
+            setTimeout(() => navigate('/login'), 3000)
         } catch (error) {
-            toast.error('Change password failed 😥😥', {
+            console.log(error)
+            toast.error(error.response.data.message, {
                 autoClose: 2000,
                 theme: 'colored',
             })
@@ -32,12 +37,13 @@ function ChangePassword(props) {
     }
 
     return (
-        <Box pt="50px">
+        <Box p="24px 0 50px">
             <Box
-                backgroundColor="#fff"
                 width="400px"
                 margin="auto"
-                p="16px 12px 20px"
+                p="12px"
+                backgroundColor="#fff"
+                boxShadow={`0 0 3px 3px ${grey[100]}`}
                 borderRadius="5px"
             >
                 <ChangePasswordForm onSubmit={handleSubmit} />
@@ -47,4 +53,4 @@ function ChangePassword(props) {
     )
 }
 
-export default ChangePassword
+export default ChangePasswordUser

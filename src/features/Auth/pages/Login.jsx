@@ -23,7 +23,7 @@ function Login() {
         try {
             const user = await authApi.login(value)
             const cart = await cartsApi.getByUserId(user.user._id)
-            console.log(user.user.role)
+            // console.log(user.user.role)
 
             if (roleList.includes(user?.user?.role))
                 throw new Error('Not allow employee go to website shopping. Please sign up.')
@@ -61,7 +61,7 @@ function Login() {
     }
 
     return (
-        <Box p="10px 0 50px">
+        <Box p="24px 0 50px">
             <Box
                 width="400px"
                 margin="auto"

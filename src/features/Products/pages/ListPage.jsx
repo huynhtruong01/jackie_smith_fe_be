@@ -1,12 +1,12 @@
-import { Box, Typography } from '@mui/material'
-import { orange } from '@mui/material/colors'
-import React, { useEffect, useState } from 'react'
+import { Box } from '@mui/material'
+import { grey } from '@mui/material/colors'
+import { useEffect, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import categoriesApi from '../../../api/categoriesApi'
+import colorsApi from '../../../api/colorsApi'
 import productsApi from '../../../api/productsApi'
-import { colorList } from '../../../utils/colorList'
+import stylesApi from '../../../api/stylesApi'
 import { formatCapitalize } from '../../../utils/common'
-import { styleList } from '../../../utils/styleList'
 import FilterByPrice from '../components/Filters/FilterByPrice'
 import FilterSort from '../components/Filters/FilterSort'
 import ProductFilter from '../components/Filters/ProductFilter'
@@ -21,6 +21,8 @@ ListPage.propTypes = {}
 
 function ListPage() {
     const [productList, setProductList] = useState([])
+    const [colorList, setColorList] = useState([])
+    const [styleList, setStyleList] = useState([])
     const [pagination, setPagination] = useState(10)
     const [searchParams] = useSearchParams()
     const [filters, setFilters] = useState(() => {
@@ -54,6 +56,26 @@ function ListPage() {
         getProducts()
     }, [filters])
 
+    // color
+    useEffect(() => {
+        const getColors = async () => {
+            try {
+                const { colors } = await colorsApi.getAll()
+                const { styles } = await stylesApi.getAll()
+
+                const newColors = colors.map((x) => ({ _id: x._id, name: x.name }))
+                const newStyles = styles.map((x) => ({ _id: x._id, name: x.name }))
+
+                setColorList(newColors)
+                setStyleList(newStyles)
+            } catch (error) {
+                console.log('Colors error: ', error)
+            }
+        }
+
+        getColors()
+    }, [])
+
     useEffect(() => {
         navigate({
             pathname: '',
@@ -72,15 +94,35 @@ function ListPage() {
     }
 
     // category change
-    const handleCategoryChange = (value) => {
-        if (value === '') {
-            const newFilters = { ...filters, page: 1 }
-            delete newFilters.category
-            setFilters(newFilters)
-            return
-        }
+    const handleFilterCategory = async (value) => {
+        try {
+            console.log(value)
 
-        setFilters((prev) => ({ ...prev, category: value, page: 1 }))
+            if (value === '') {
+                const newFilters = { ...filters, page: 1 }
+                delete newFilters.category
+
+                const { styles } = await stylesApi.getAll()
+                const newStyles = styles.map((x) => ({ _id: x._id, name: x.name }))
+
+                setStyleList(newStyles)
+                setFilters(newFilters)
+                return
+            }
+
+            // const category = await categoriesApi.getById(value)
+            // console.log(category)
+
+            // fetch styleList by stylesApi
+            const { styles } = await stylesApi.getByCategory(value)
+            // console.log(styles)
+            const newStyleList = styles.map((x) => ({ _id: x._id, name: x.name }))
+            setStyleList(newStyleList)
+
+            setFilters((prev) => ({ ...prev, category: value, page: 1 }))
+        } catch (error) {
+            console.log('Categories filter: ', error)
+        }
     }
 
     // filter by style
@@ -100,6 +142,7 @@ function ListPage() {
     // filter by color
     const handleColorFilter = (value) => {
         const newFilters = { ...filters }
+
         if (value === '') {
             delete newFilters.color
             setFilters(newFilters)
@@ -149,24 +192,31 @@ function ListPage() {
                     >
                         <Box>
                             <ProductClearAll filters={filters} onChange={handleClearAllChange} />
-                            <ProductFilter
-                                filters={filters}
-                                title="Categories"
-                                api={categoriesApi}
-                                onChange={handleCategoryChange}
-                            />
-                            <ProductFilterArr
-                                filters={filters}
-                                title="Style"
-                                data={styleList}
-                                onChange={handleFilterStyle}
-                            />
-                            <ProductFilterArr
-                                filters={filters}
-                                title="Color"
-                                data={colorList}
-                                onChange={handleColorFilter}
-                            />
+                            <Box>
+                                <ProductFilter
+                                    filters={filters}
+                                    title="Categories"
+                                    api={categoriesApi}
+                                    onChange={handleFilterCategory}
+                                />
+                            </Box>
+                            <Box p="10px 0" borderTop={`1px solid ${grey[300]}`}>
+                                <ProductFilterArr
+                                    filters={filters}
+                                    title="Style"
+                                    data={styleList}
+                                    onChange={handleFilterStyle}
+                                />
+                            </Box>
+                            <Box p="10px 0" borderTop={`1px solid ${grey[300]}`}>
+                                <ProductFilterArr
+                                    filters={filters}
+                                    title="Color"
+                                    data={colorList}
+                                    onChange={handleColorFilter}
+                                    isColor={true}
+                                />
+                            </Box>
                             <FilterByPrice onClick={handleFilterPrice} />
                         </Box>
                     </Box>

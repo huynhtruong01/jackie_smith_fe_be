@@ -14,12 +14,14 @@ import Invoice from './features/Invoice'
 import AccountInfo from './features/AccountInfo'
 import ChangePassword from './features/ChangePassword'
 import ChangeInfo from './features/ChangeInfo'
+import ForgotPassword from './features/Auth/pages/ForgotPassword'
+import ChangePasswordUser from './features/Auth/pages/ChangePasswordUser'
 
 function App() {
     return (
         <Box>
             <Header />
-            <Box pt="75px" backgroundColor={grey[50]} minHeight="calc(100vh - 100px)">
+            <Box pt="64px" backgroundColor={grey[50]} minHeight="calc(100vh - 100px)">
                 <Routes>
                     <Route path="" element={<Home />} />
                     <Route path="products/*" element={<Products />} />
@@ -30,6 +32,8 @@ function App() {
                     <Route path="account" element={<AccountInfo />} />
                     <Route path="change-password" element={<ChangePassword />} />
                     <Route path="setting-account" element={<ChangeInfo />} />
+                    <Route path="forgot-password" element={<ForgotPassword />} />
+                    <Route path="change-password-account" element={<ChangePasswordUser />} />
                 </Routes>
             </Box>
             <Footer />

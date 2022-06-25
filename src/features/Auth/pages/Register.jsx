@@ -12,9 +12,9 @@ Register.propTypes = {}
 function Register() {
     const navigate = useNavigate()
 
-    const handleSubmit = async (value) => {
+    const handleSubmit = async (values) => {
         try {
-            const { message } = await authApi.register(value)
+            const { message } = await authApi.register(values)
 
             toast.success(message, {
                 autoClose: 2000,
@@ -31,7 +31,7 @@ function Register() {
     }
 
     return (
-        <Box p="10px 0 50px">
+        <Box p="24px 0 50px">
             <Box
                 width="400px"
                 margin="auto"

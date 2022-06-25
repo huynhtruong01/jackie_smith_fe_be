@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { Box, Typography, FormGroup, FormControlLabel, Checkbox } from '@mui/material'
-import { formatCapitalize } from '../../../../utils/common'
+import { Box, Checkbox, FormControlLabel, FormGroup, Typography } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
+import { useEffect, useState } from 'react'
+import { formatCapitalize } from '../../../../utils/common'
 
 ProductFilter.propTypes = {}
 
@@ -27,14 +26,18 @@ function ProductFilter({ filters, title = '', api, onChange = null }) {
         getCategories()
     }, [])
 
-    const handleChange = (e) => {
-        if (!onChange) return
-        if (e.target.name === 'all') {
-            onChange('')
-            return
-        }
+    const handleChange = async (e) => {
+        try {
+            if (!onChange) return
+            if (e.target.name === 'all') {
+                onChange('')
+                return
+            }
 
-        onChange(e.target.name)
+            await onChange(e.target.name)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
