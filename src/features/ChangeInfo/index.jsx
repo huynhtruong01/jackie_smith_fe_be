@@ -18,8 +18,7 @@ function ChangeInfo(props) {
     const navigate = useNavigate()
     const values = {
         fullname: user.fullname,
-        address: user.address,
-        phoneNumber: `0${user.phoneNumber}`,
+        email: user.email,
     }
 
     const handleSubmit = async (values) => {

@@ -10,12 +10,14 @@ import Register from './features/Auth/pages/Register'
 import { grey } from '@mui/material/colors'
 import Cart from './features/Cart'
 import Login from './features/Auth/pages/Login'
-import Invoice from './features/Invoice'
+import Checkout from './features/Checkout'
 import AccountInfo from './features/AccountInfo'
 import ChangePassword from './features/ChangePassword'
 import ChangeInfo from './features/ChangeInfo'
 import ForgotPassword from './features/Auth/pages/ForgotPassword'
 import ChangePasswordUser from './features/Auth/pages/ChangePasswordUser'
+import PaymentStripe from './features/PaymentStripe'
+import PaymentDirectly from './features/PaymentDirectly'
 
 function App() {
     return (
@@ -28,12 +30,14 @@ function App() {
                     <Route path="cart" element={<Cart />} />
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
-                    <Route path="invoice" element={<Invoice />} />
+                    <Route path="checkout" element={<Checkout />} />
                     <Route path="account" element={<AccountInfo />} />
                     <Route path="change-password" element={<ChangePassword />} />
                     <Route path="setting-account" element={<ChangeInfo />} />
                     <Route path="forgot-password" element={<ForgotPassword />} />
                     <Route path="change-password-account" element={<ChangePasswordUser />} />
+                    <Route path="payment-online" element={<PaymentStripe />} />
+                    <Route path="payment-directly" element={<PaymentDirectly />} />
                 </Routes>
             </Box>
             <Footer />

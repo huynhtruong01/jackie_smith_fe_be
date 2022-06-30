@@ -20,6 +20,8 @@ import { logout } from './Auth/userSlice'
 import { totalQuantity } from './Cart/cartSelector'
 import { hideCart, resetCart } from './Cart/cartSlice'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import SettingsIcon from '@mui/icons-material/Settings'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 
 Header.propTypes = {}
 
@@ -74,7 +76,7 @@ function Header() {
                 <Toolbar
                     sx={{
                         backgroundColor: '#fff',
-                        '& a': {
+                        '& > a': {
                             flex: 1,
                         },
                     }}
@@ -121,27 +123,29 @@ function Header() {
                             display: 'flex',
                             justifyContent: 'flex-end',
                             alignItems: 'center',
+
+                            '& > a': {
+                                display: 'inline',
+                                color: '#fff',
+                            },
                         }}
                     >
                         {!user && (
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    fontWeight: 500,
-                                    mr: '12px',
-                                    backgroundColor: orange[300],
+                            <Link to="/login">
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        fontWeight: 500,
+                                        backgroundColor: orange[300],
 
-                                    a: {
-                                        color: '#fff',
-                                    },
-
-                                    '&:hover': {
-                                        backgroundColor: orange[600],
-                                    },
-                                }}
-                            >
-                                <Link to="/login">Login</Link>
-                            </Button>
+                                        '&:hover': {
+                                            backgroundColor: orange[600],
+                                        },
+                                    }}
+                                >
+                                    Login
+                                </Button>
+                            </Link>
                         )}
                         {user && (
                             <>
@@ -173,10 +177,35 @@ function Header() {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
-                                        <MenuItem onClick={handleClose}>
-                                            <Link to="/account">Your account</Link>
+                                        <MenuItem
+                                            onClick={handleClose}
+                                            sx={{
+                                                width: '100%',
+                                                p: '8px 10px 8px 7px',
+                                            }}
+                                        >
+                                            <SettingsIcon
+                                                sx={{
+                                                    mr: '12px',
+                                                    color: orange[500],
+                                                }}
+                                            />
+                                            <Link to="/account">Setting</Link>
                                         </MenuItem>
-                                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                                        <MenuItem
+                                            onClick={handleLogout}
+                                            sx={{
+                                                p: '8px 10px 8px 6px',
+                                            }}
+                                        >
+                                            <ExitToAppIcon
+                                                sx={{
+                                                    mr: '12px',
+                                                    color: orange[500],
+                                                }}
+                                            />
+                                            Logout
+                                        </MenuItem>
                                     </Menu>
                                 </Box>
                                 <IconButton

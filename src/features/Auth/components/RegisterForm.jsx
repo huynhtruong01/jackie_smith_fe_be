@@ -23,14 +23,6 @@ function RegisterForm({ onSubmit = null }) {
                 (value) => value.split(' ').filter((x) => !!x && x.length >= 2).length >= 2
             ),
         email: yup.string().required('Please enter email').email('Invalid email'),
-        phoneNumber: yup
-            .string()
-            .required('Please enter phone number')
-            .test(
-                'check-length',
-                'Please enter phone number least nine number or maximum eleven number',
-                (value) => value.toString().length >= 9 && value.toString().length <= 11
-            ),
         password: yup
             .string()
             .required('Please enter password')
@@ -46,7 +38,6 @@ function RegisterForm({ onSubmit = null }) {
         defaultValues: {
             fullname: '',
             email: '',
-            phoneNumber: '',
             password: '',
             confirmPassword: '',
         },
@@ -83,7 +74,6 @@ function RegisterForm({ onSubmit = null }) {
                     placeholder="Nguyen Van A"
                 />
                 <InputField name="email" label="Email" form={form} placeholder="abc@gmail.com" />
-                <NumberField name="phoneNumber" label="Phone Number" form={form} />
                 <PasswordField name="password" label="Password" form={form} />
                 <PasswordField name="confirmPassword" label="Confirm Password" form={form} />
             </Box>

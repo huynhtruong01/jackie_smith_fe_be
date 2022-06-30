@@ -16,6 +16,8 @@ import ProductEmpty from '../components/ProductEmpty'
 import ProductList from '../components/ProductList'
 import ProductPagination from '../components/ProductPagination'
 import ProductSearch from '../components/ProductSearch'
+import CategoryListSkeleton from '../components/Skeleton/CategoryListSkeleton'
+import ProductListSkeleton from '../components/Skeleton/ProductListSkeleton'
 
 ListPage.propTypes = {}
 
@@ -23,6 +25,7 @@ function ListPage() {
     const [productList, setProductList] = useState([])
     const [colorList, setColorList] = useState([])
     const [styleList, setStyleList] = useState([])
+    const [loading, setLoading] = useState(true)
     const [pagination, setPagination] = useState(10)
     const [searchParams] = useSearchParams()
     const [filters, setFilters] = useState(() => {
@@ -43,14 +46,25 @@ function ListPage() {
 
     useEffect(() => {
         const getProducts = async () => {
+            setLoading(true)
             try {
                 const { products, totalCount } = await productsApi.getAll(filters)
+                if (filters['salePrice[gte]'] || filters['salePrice[lte]']) {
+                    let count = null
+                    const productsByPrice = await productsApi.getAll(filters)
+                    count = productsByPrice.length
+                    setProductList(productsByPrice)
+                    setPagination(count)
+                    return
+                }
+
                 setProductList(products)
                 setPagination(totalCount)
                 console.log(products, totalCount)
             } catch (error) {
                 console.log('Error: ', error)
             }
+            setLoading(false)
         }
 
         getProducts()
@@ -206,6 +220,7 @@ function ListPage() {
                                     title="Style"
                                     data={styleList}
                                     onChange={handleFilterStyle}
+                                    loading={loading}
                                 />
                             </Box>
                             <Box p="10px 0" borderTop={`1px solid ${grey[300]}`}>
@@ -222,9 +237,9 @@ function ListPage() {
                     </Box>
                 </Box>
                 <Box flex={4} backgroundColor="#fff" p="12px" borderRadius="5px">
+                    <FilterSort filters={filters} onChange={handleSortChange} />
                     {productList?.length > 0 && (
                         <>
-                            <FilterSort filters={filters} onChange={handleSortChange} />
                             <ProductList productList={productList} />
                             <ProductPagination
                                 count={pagination}
@@ -233,7 +248,8 @@ function ListPage() {
                             />
                         </>
                     )}
-                    {productList?.length === 0 && <ProductEmpty />}
+                    {loading && <ProductListSkeleton limit={filters.limit} />}
+                    {!loading && productList?.length === 0 && <ProductEmpty />}
                 </Box>
             </Box>
         </Box>

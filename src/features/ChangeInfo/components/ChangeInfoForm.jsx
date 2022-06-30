@@ -21,18 +21,13 @@ function ChangeInfoForm({ values, onSubmit = null }) {
                 'Please enter full name at least two words',
                 (value) => value.split(' ').filter((x) => !!x && x.length >= 2).length >= 2
             ),
-        address: yup.string().required('Please enter address'),
-        phoneNumber: yup
-            .number()
-            .required('Please enter phone number')
-            .typeError('Phone number must be number'),
+        email: yup.string().required('Please enter email').email('Invalid email'),
     })
 
     const form = useForm({
         defaultValues: {
             fullname: values.fullname,
-            address: values.address,
-            phoneNumber: values.phoneNumber,
+            email: values.email,
         },
         resolver: yupResolver(schema),
     })
@@ -71,15 +66,9 @@ function ChangeInfoForm({ values, onSubmit = null }) {
                     form={form}
                 />
                 <InputField
-                    name="address"
-                    label="Address"
-                    placeholder="448 Le Van Viet, Tang Nhon Phu A, Thu Duc city"
-                    form={form}
-                />
-                <InputField
-                    name="phoneNumber"
-                    label="Phone Number"
-                    placeholder="0908765432"
+                    name="email"
+                    label="Email"
+                    placeholder="anguyen@gmail.com"
                     form={form}
                 />
             </Box>

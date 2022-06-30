@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'

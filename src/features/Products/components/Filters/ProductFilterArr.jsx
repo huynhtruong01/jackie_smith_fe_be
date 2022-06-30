@@ -4,10 +4,18 @@ import { Box, Typography, FormGroup, FormControlLabel, Checkbox } from '@mui/mat
 import { grey, orange } from '@mui/material/colors'
 import { formatColor } from '../../../../utils/color'
 import { formatCapitalize } from '../../../../utils/common'
+import CategoryListSkeleton from '../Skeleton/CategoryListSkeleton'
 
 ProductFilterArr.propTypes = {}
 
-function ProductFilterArr({ filters, title, data = [], onChange = null, isColor = false }) {
+function ProductFilterArr({
+    filters,
+    title,
+    data = [],
+    onChange = null,
+    isColor = false,
+    loading = false,
+}) {
     const handleCheckboxChange = (e) => {
         if (!onChange) return
 
@@ -82,6 +90,7 @@ function ProductFilterArr({ filters, title, data = [], onChange = null, isColor 
                             }
                         />
                     ))}
+                    {loading && <CategoryListSkeleton limit={10} />}
                 </FormGroup>
             </Box>
         </Box>

@@ -37,42 +37,58 @@ function SliderProducts() {
 
     return (
         <Box p="30px 0 70px">
-            <Box mb="40px">
-                <Typography
-                    variant="h3"
-                    component="h2"
-                    fontWeight={600}
-                    color={orange[600]}
-                    mb="4px"
-                >
-                    The product
-                </Typography>
-                <Typography color={grey[500]} mb="8px">
-                    These are the products most customers buy in 2022
-                </Typography>
+            <Box mb="40px" display="flex" justifyContent="space-between" alignItems="center">
+                <Box>
+                    <Typography
+                        variant="h3"
+                        component="h2"
+                        fontWeight={600}
+                        color={orange[600]}
+                        mb="4px"
+                    >
+                        The product
+                    </Typography>
+                    <Typography color={grey[500]} mb="8px">
+                        These are the products most customers buy in 2022
+                    </Typography>
+                    <Box
+                        sx={{
+                            '& .btn': {
+                                backgroundColor: grey[100],
+                            },
+
+                            '& svg': {
+                                width: '24px',
+                                height: '24px',
+                            },
+                        }}
+                    >
+                        <IconButton
+                            className="btn btn-prev"
+                            sx={{
+                                mr: '8px',
+                            }}
+                        >
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <IconButton className="btn btn-next">
+                            <ArrowForwardIcon />
+                        </IconButton>
+                    </Box>
+                </Box>
                 <Box
                     sx={{
-                        '& .btn': {
-                            backgroundColor: grey[100],
-                        },
+                        a: {
+                            color: orange[400],
 
-                        '& svg': {
-                            width: '24px',
-                            height: '24px',
+                            '&:hover': {
+                                color: orange[600],
+                                textDecoration: 'underline',
+                            },
                         },
                     }}
                 >
-                    <IconButton
-                        className="btn btn-prev"
-                        sx={{
-                            mr: '8px',
-                        }}
-                    >
-                        <ArrowBackIcon />
-                    </IconButton>
-                    <IconButton className="btn btn-next">
-                        <ArrowForwardIcon />
-                    </IconButton>
+                    <Link to="/products">Show more</Link>
                 </Box>
             </Box>
             {productList?.length > 0 && (

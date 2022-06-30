@@ -29,6 +29,10 @@ ul {
     margin: 0;
 }
 
+button {
+    outline: none;
+}
+
 ::-webkit-scrollbar {
     width: 7px;
 }

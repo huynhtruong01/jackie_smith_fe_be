@@ -8,6 +8,8 @@ import * as yup from 'yup'
 import ButtonOrange from '../../../components/ButtonOrange'
 import InputField from '../../../components/formControls/InputField'
 import PasswordField from '../../../components/formControls/PasswordField'
+import LoginFacebook from '../../../components/LoginSocial/LoginFacebook'
+import LoginGoogle from '../../../components/LoginSocial/LoginGoogle'
 
 LoginForm.propTypes = {}
 
@@ -63,6 +65,7 @@ function LoginForm({ onSubmit = null }) {
             />
             <Box
                 mt="8px"
+                mb="16px"
                 textAlign="right"
                 sx={{
                     a: {
@@ -78,7 +81,11 @@ function LoginForm({ onSubmit = null }) {
                     <Typography fontSize="0.9rem">Forgot password?</Typography>
                 </Link>
             </Box>
-            <Box mt="32px" textAlign="center">
+            <Box width="100%">
+                <LoginGoogle />
+                {/* <LoginFacebook /> */}
+            </Box>
+            <Box mt="8px" textAlign="center">
                 <Typography
                     sx={{
                         color: grey[700],

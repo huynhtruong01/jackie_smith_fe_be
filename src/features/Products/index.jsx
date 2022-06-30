@@ -8,6 +8,8 @@ import DetailPage from './pages/DetailPage'
 Products.propTypes = {}
 
 function Products() {
+    window.scrollTo(0, 0)
+
     return (
         <Box p="20px" pt="8px">
             <Routes>

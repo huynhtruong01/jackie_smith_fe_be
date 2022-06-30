@@ -2,14 +2,17 @@ import { Box, Checkbox, FormControlLabel, FormGroup, Typography } from '@mui/mat
 import { grey, orange } from '@mui/material/colors'
 import { useEffect, useState } from 'react'
 import { formatCapitalize } from '../../../../utils/common'
+import CategoryListSkeleton from '../Skeleton/CategoryListSkeleton'
 
 ProductFilter.propTypes = {}
 
 function ProductFilter({ filters, title = '', api, onChange = null }) {
     const [categoryList, setCategoryList] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const getCategories = async () => {
+            setLoading(true)
             try {
                 const result = await api.getAll()
                 const newCategoryList = result[title.toLowerCase()].map((category) => ({
@@ -21,6 +24,8 @@ function ProductFilter({ filters, title = '', api, onChange = null }) {
             } catch (error) {
                 console.log('Error: ', error)
             }
+
+            setLoading(false)
         }
 
         getCategories()
@@ -89,6 +94,7 @@ function ProductFilter({ filters, title = '', api, onChange = null }) {
                             label={checkbox.label}
                         />
                     ))}
+                    {loading && <CategoryListSkeleton limit={4} />}
                 </FormGroup>
             </Box>
         </Box>
