@@ -35,7 +35,7 @@ function PaymentDirectly() {
                     productList: carts,
                     totalPrice: checkoutValues.totalPrice,
                     totalQuantity: checkoutValues.totalQuantity,
-                    isCheckout: true,
+                    isCheckout: false,
                     mode: 'approves',
                 }
 
