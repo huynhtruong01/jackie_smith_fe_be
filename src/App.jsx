@@ -18,6 +18,8 @@ import ForgotPassword from './features/Auth/pages/ForgotPassword'
 import ChangePasswordUser from './features/Auth/pages/ChangePasswordUser'
 import PaymentStripe from './features/PaymentStripe'
 import PaymentDirectly from './features/PaymentDirectly'
+import TrackingOrder from './features/TrackingOrder'
+import NotFound from './components/NotFound'
 
 function App() {
     return (
@@ -25,7 +27,7 @@ function App() {
             <Header />
             <Box pt="64px" backgroundColor={grey[50]} minHeight="calc(100vh - 100px)">
                 <Routes>
-                    <Route path="" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="products/*" element={<Products />} />
                     <Route path="cart" element={<Cart />} />
                     <Route path="login" element={<Login />} />
@@ -38,6 +40,8 @@ function App() {
                     <Route path="change-password-account" element={<ChangePasswordUser />} />
                     <Route path="payment-online" element={<PaymentStripe />} />
                     <Route path="payment-directly" element={<PaymentDirectly />} />
+                    <Route path="tracking-order/*" element={<TrackingOrder />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Box>
             <Footer />

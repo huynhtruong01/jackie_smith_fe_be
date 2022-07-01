@@ -5,6 +5,10 @@ const ordersApi = {
         const url = '/orders'
         return axiosClient.get(url, { params })
     },
+    getAllByUserId(data) {
+        const url = '/orders/orders-userid'
+        return axiosClient.post(url, data)
+    },
     getById(id) {
         const url = `/orders/${id}`
         return axiosClient.get(url)

@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom'
 import { loginAndSaveUser } from '../../features/Auth/userSlice'
 import cartsApi from '../../api/cartsApi'
 import { getCartFromDB, getIdCartFromDB } from '../../features/Cart/cartSlice'
+import ordersApi from '../../api/ordersApi'
+import { addTrackingOrder } from '../../features/TrackingOrder/trackingOrderSlice'
 
 LoginGoogle.propTypes = {}
 
@@ -54,6 +56,11 @@ function LoginGoogle() {
                 dispatch(getCartFromDB(cartList))
                 dispatch(getIdCartFromDB(cart._id))
             }
+
+            // save tracking order redux
+            const { orders } = await ordersApi.getAllByUserId({ userId: userDB?.user?._id })
+            console.log(orders)
+            dispatch(addTrackingOrder(orders))
 
             console.log(userDB)
             // save local storage

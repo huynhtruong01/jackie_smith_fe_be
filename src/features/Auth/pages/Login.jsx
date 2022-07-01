@@ -6,7 +6,9 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import authApi from '../../../api/authApi'
 import cartsApi from '../../../api/cartsApi'
+import ordersApi from '../../../api/ordersApi'
 import { getCartFromDB, getIdCartFromDB } from '../../Cart/cartSlice'
+import { addTrackingOrder } from '../../TrackingOrder/trackingOrderSlice'
 import LoginForm from '../components/LoginForm'
 import { loginAndSaveUser } from '../userSlice'
 
@@ -41,6 +43,11 @@ function Login() {
 
             // save user in redux
             dispatch(loginAndSaveUser(user))
+
+            // save tracking order list redux
+            const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
+            console.log(orders)
+            dispatch(addTrackingOrder(orders))
 
             // save cart from db into redux
 

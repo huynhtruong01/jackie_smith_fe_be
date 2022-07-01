@@ -11,6 +11,7 @@ import { resetCart } from '../Cart/cartSlice'
 import { resetCheckout } from '../Checkout/checkoutSlice'
 import { useNavigate, Link } from 'react-router-dom'
 import { orange } from '@mui/material/colors'
+import { addTrackingOrder } from '../TrackingOrder/trackingOrderSlice'
 
 PaymentDirectly.propTypes = {}
 
@@ -24,7 +25,7 @@ function PaymentDirectly() {
 
     useEffect(() => {
         const handleOrder = async () => {
-            if (!idCart) return
+            if (!idCart && carts.length === 0 && Object.keys(checkoutValues).length === 0) return
             try {
                 const orderItem = {
                     userId: user._id,
@@ -46,6 +47,12 @@ function PaymentDirectly() {
                 // add order database
                 await ordersApi.add(orderItem)
 
+                // save tracking order when select type payment
+                const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
+                dispatch(addTrackingOrder(orders))
+
+                console.log(orders)
+
                 // remove cart
                 dispatch(resetCart())
                 // remove checkout
@@ -55,7 +62,6 @@ function PaymentDirectly() {
                     autoClose: 2000,
                     theme: 'colored',
                 })
-                setTimeout(() => navigate('/'), 3000)
             } catch (error) {
                 console.log(error)
                 toast.error(error?.response?.data?.message, {

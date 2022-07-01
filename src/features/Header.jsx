@@ -1,4 +1,8 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import SettingsIcon from '@mui/icons-material/Settings'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import {
     AppBar,
@@ -19,9 +23,7 @@ import { getNameUser } from '../utils/common'
 import { logout } from './Auth/userSlice'
 import { totalQuantity } from './Cart/cartSelector'
 import { hideCart, resetCart } from './Cart/cartSlice'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import SettingsIcon from '@mui/icons-material/Settings'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import { resetTrackingOrder } from './TrackingOrder/trackingOrderSlice'
 
 Header.propTypes = {}
 
@@ -32,6 +34,7 @@ function Header() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user2.currentUser)
+    const trackingOrderList = useSelector((state) => state.trackingOrder.trackingOrderList)
 
     const handleGoToCart = () => {
         dispatch(hideCart())
@@ -50,6 +53,7 @@ function Header() {
     const handleLogout = () => {
         dispatch(logout())
         dispatch(resetCart())
+        dispatch(resetTrackingOrder())
         setAnchorEl(null)
         navigate('/')
     }
@@ -168,6 +172,28 @@ function Header() {
                                     >
                                         Hi, {getNameUser(user.user.fullname)}
                                     </Button>
+                                    <IconButton
+                                        sx={{
+                                            ml: '8px',
+                                            '&:hover': {
+                                                backgroundColor: orange[50],
+                                            },
+                                            '& svg': {
+                                                color: orange[500],
+                                                width: '1.7rem',
+                                                height: '1.7rem',
+                                            },
+                                        }}
+                                    >
+                                        <Link to="/tracking-order">
+                                            <Badge
+                                                badgeContent={trackingOrderList.length}
+                                                color="error"
+                                            >
+                                                <NotificationsIcon />
+                                            </Badge>
+                                        </Link>
+                                    </IconButton>
                                     <Menu
                                         id="basic-menu"
                                         anchorEl={anchorEl}

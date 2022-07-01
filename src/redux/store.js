@@ -14,6 +14,8 @@ import cartReducer from '../features/Cart/cartSlice'
 import userReducer from '../features/Auth/userSlice'
 import userTemporaryReducer from '../features/Auth/userTemporarySlice'
 import checkoutReducer from '../features/Checkout/checkoutSlice'
+import toggleReducer from './toggleSlice'
+import trackingOrderReducer from '../features/TrackingOrder/trackingOrderSlice'
 
 const persistConfig = {
     key: 'root',
@@ -26,6 +28,8 @@ const rootReducer = combineReducers({
     user2: userReducer,
     userTemporary: userTemporaryReducer,
     checkout: checkoutReducer,
+    trackingOrder: trackingOrderReducer,
+    toggle: toggleReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
