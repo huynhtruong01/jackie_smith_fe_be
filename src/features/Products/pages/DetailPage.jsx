@@ -12,7 +12,7 @@ import { clothingSizeList, sneakerSizeList } from '../../../utils/size'
 
 DetailPage.propTypes = {}
 
-const nameCategoriesList = ['clothing', 'sneaker']
+const nameCategoriesList = ['clothings', 'sneakers']
 
 function DetailPage() {
     const [product, setProduct] = useState({})
