@@ -1,6 +1,5 @@
-import { CleaningServicesTwoTone } from '@mui/icons-material'
 import { Box, TableCell } from '@mui/material'
-import { formatCapitalize, truncate } from '../../utils/common'
+import { formatCapitalize } from '../../utils/common'
 import { colorMode } from '../../utils/trackingOrder'
 import BoxColor from '../BoxColor'
 import ButtonClick from '../ButtonClick'
