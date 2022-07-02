@@ -151,13 +151,13 @@ function DetailPage() {
                         <Typography variant="body1" mb="4px" fontWeight={600}>
                             Quantity
                         </Typography>
-                        {product?.category?.name === 'clothing' && (
+                        {product?.category?.name === 'clothings' && (
                             <QuantityForm
                                 onSubmit={handleQuantitySubmit}
                                 menuList={clothingSizeList}
                             />
                         )}
-                        {product?.category?.name === 'sneaker' && (
+                        {product?.category?.name === 'sneakers' && (
                             <QuantityForm
                                 onSubmit={handleQuantitySubmit}
                                 menuList={sneakerSizeList}
