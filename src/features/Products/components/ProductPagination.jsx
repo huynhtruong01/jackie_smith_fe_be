@@ -14,7 +14,7 @@ function ProductPagination({ count = 10, page = 1, onChange = null }) {
     return (
         <Box p="40px" display="flex" justifyContent="center" alignItems="center">
             <Pagination
-                count={Math.ceil(count / 9) || 3}
+                count={Math.ceil(count / 12) || 3}
                 page={page}
                 onChange={handlePageChange}
                 sx={{
