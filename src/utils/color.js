@@ -34,6 +34,9 @@ export const formatColor = (colorName) => {
         case 'blue':
             color = '#3498db'
             break
+        case 'mixed':
+            color = '#6e3b3b'
+            break
     }
 
     return color

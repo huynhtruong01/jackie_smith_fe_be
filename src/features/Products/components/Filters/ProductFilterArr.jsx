@@ -78,7 +78,9 @@ function ProductFilterArr({
                             label={
                                 isColor ? (
                                     <Box
-                                        backgroundColor={formatColor(x?.name)}
+                                        backgroundColor={
+                                            formatColor(x?.name)[0] === '#' && formatColor(x?.name)
+                                        }
                                         border={`1px solid ${grey[500]}`}
                                         borderRadius="2px"
                                         width="20px"

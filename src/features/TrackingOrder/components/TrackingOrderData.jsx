@@ -28,7 +28,7 @@ function TrackingOrderData({ trackingOrderList = [] }) {
         phoneNumber: order?.phoneNumber,
         totalPrice: formatPrice(order?.totalPrice),
         totalQuantity: order?.totalQuantity,
-        mode: order?.mode,
+        mode: order?.mode === 'approved' ? 'shipping' : order?.mode,
         type: 'tracking order',
     }))
 
