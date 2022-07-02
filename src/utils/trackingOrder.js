@@ -3,7 +3,7 @@ import { green, red } from '@mui/material/colors'
 export const colorMode = (mode) => {
     if (!mode) return
 
-    const modeList = ['approves', 'approved']
+    const modeList = ['approves', 'shipping']
     if (!modeList.includes(mode)) return false
 
     let bgColor = '#fff'
