@@ -10,14 +10,14 @@ export const colorMode = (mode) => {
     let textColor = '#000'
     switch (mode) {
         case 'approves': {
-            bgColor = green[50]
-            textColor = green[500]
+            bgColor = red[50]
+            textColor = red[500]
             break
         }
 
-        case 'approved': {
-            bgColor = red[50]
-            textColor = red[500]
+        case 'shipping': {
+            bgColor = green[50]
+            textColor = green[500]
             break
         }
     }
