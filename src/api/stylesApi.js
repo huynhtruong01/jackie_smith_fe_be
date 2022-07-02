@@ -10,6 +10,10 @@ const stylesApi = {
         const url = `/styles/category/${id}`
         return axiosClient.get(url)
     },
+    getById(id) {
+        const url = `/styles/${id}`
+        return axiosClient.get(url)
+    },
 }
 
 export default stylesApi

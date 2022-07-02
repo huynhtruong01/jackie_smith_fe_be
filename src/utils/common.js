@@ -30,7 +30,7 @@ export const categoryList = async () => {
 }
 
 export const truncate = (str, number) => {
-    return `${str.slice(0, number)}\u2026`
+    return `${str?.slice(0, number)}\u2026`
 }
 
 export const formatPrice = (x) => {

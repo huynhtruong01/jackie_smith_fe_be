@@ -1,6 +1,8 @@
-import { TableCell } from '@mui/material'
+import { CleaningServicesTwoTone } from '@mui/icons-material'
+import { Box, TableCell } from '@mui/material'
 import { formatCapitalize, truncate } from '../../utils/common'
 import { colorMode } from '../../utils/trackingOrder'
+import BoxColor from '../BoxColor'
 import ButtonClick from '../ButtonClick'
 import OptionDetail from '../OptionDetail'
 
@@ -11,19 +13,27 @@ function TableDataBody({ data = {} }) {
 
     return (
         <>
-            {Object.values({ ...newData, id: truncate(data.id, 5) }).map((x, index) => {
+            {Object.values({ ...newData }).map((x, index) => {
                 const checkMode = colorMode(x) ? colorMode(x) : false
+                console.log(x)
 
                 return (
                     <TableCell align="center" key={`${x}${index}`}>
-                        {checkMode ? (
+                        {checkMode && (
                             <ButtonClick
                                 bgColor={checkMode.bgColor}
                                 textColor={checkMode.textColor}
                                 text={formatCapitalize(x)}
                             />
-                        ) : (
-                            x
+                        )}
+                        {!checkMode && x[0] !== '#' && !x?.toString()?.startsWith('http') && x}
+                        {x[0] === '#' && <BoxColor color={x} />}
+                        {x?.toString()?.startsWith('http') && (
+                            <Box display="flex" justifyContent="center" alignItems="center">
+                                <Box width="70px">
+                                    <img src={x} alt="" />
+                                </Box>
+                            </Box>
                         )}
                     </TableCell>
                 )

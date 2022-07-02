@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import ButtonOrange from '../../../components/ButtonOrange'
 import { orange } from '@mui/material/colors'
 import RadioField from '../../../components/formControls/RadioField'
+import NumberField from '../../../components/formControls/NumberField'
 
 CheckoutForm.propTypes = {}
 
@@ -87,7 +88,7 @@ function CheckoutForm({ values, onSubmit = null }) {
                     form={form}
                     placeholder="448 Le Van Viet, Tang Nhon Phu A, Thu Duc city"
                 />
-                <InputField
+                <NumberField
                     name="phoneNumber"
                     label="Phone Number"
                     form={form}
