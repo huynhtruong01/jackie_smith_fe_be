@@ -23,7 +23,7 @@ import { getNameUser } from '../utils/common'
 import { logout } from './Auth/userSlice'
 import { totalQuantity } from './Cart/cartSelector'
 import { hideCart, resetCart } from './Cart/cartSlice'
-import { resetTrackingOrder } from './TrackingOrder/trackingOrderSlice'
+import { resetTrackingOrder, resetTrackingOrderUser } from './TrackingOrder/trackingOrderSlice'
 
 Header.propTypes = {}
 
@@ -34,7 +34,9 @@ function Header() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user2.currentUser)
-    const trackingOrderList = useSelector((state) => state.trackingOrder.trackingOrderList)
+    const trackingByUserOrderList = useSelector(
+        (state) => state.trackingOrder.trackingByUserOrderList
+    )
 
     const handleGoToCart = () => {
         dispatch(hideCart())
@@ -53,6 +55,7 @@ function Header() {
     const handleLogout = () => {
         dispatch(logout())
         dispatch(resetCart())
+        dispatch(resetTrackingOrderUser())
         dispatch(resetTrackingOrder())
         setAnchorEl(null)
         navigate('/')
@@ -187,7 +190,7 @@ function Header() {
                                     >
                                         <Link to="/tracking-order">
                                             <Badge
-                                                badgeContent={trackingOrderList.length}
+                                                badgeContent={trackingByUserOrderList.length}
                                                 color="error"
                                             >
                                                 <NotificationsIcon />

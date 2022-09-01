@@ -8,7 +8,7 @@ import authApi from '../../../api/authApi'
 import cartsApi from '../../../api/cartsApi'
 import ordersApi from '../../../api/ordersApi'
 import { getCartFromDB, getIdCartFromDB } from '../../Cart/cartSlice'
-import { addTrackingOrder } from '../../TrackingOrder/trackingOrderSlice'
+import { addTrackingOrder, addTrackingOrderUser } from '../../TrackingOrder/trackingOrderSlice'
 import LoginForm from '../components/LoginForm'
 import { loginAndSaveUser } from '../userSlice'
 
@@ -47,7 +47,7 @@ function Login() {
             // save tracking order list redux
             const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
             console.log(orders)
-            dispatch(addTrackingOrder(orders))
+            dispatch(addTrackingOrderUser(orders))
 
             // save cart from db into redux
 

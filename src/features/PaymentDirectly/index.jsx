@@ -9,7 +9,7 @@ import ordersApi from '../../api/ordersApi'
 import ButtonOrange from '../../components/ButtonOrange'
 import { resetCart } from '../Cart/cartSlice'
 import { resetCheckout } from '../Checkout/checkoutSlice'
-import { addTrackingOrder } from '../TrackingOrder/trackingOrderSlice'
+import { addTrackingOrder, addTrackingOrderUser } from '../TrackingOrder/trackingOrderSlice'
 
 PaymentDirectly.propTypes = {}
 
@@ -50,7 +50,7 @@ function PaymentDirectly() {
 
             // save tracking order when select type payment
             const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
-            dispatch(addTrackingOrder(orders))
+            dispatch(addTrackingOrderUser(orders))
 
             console.log(orders)
 

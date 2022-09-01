@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, TextField, Typography } from '@mui/material'
 import * as yup from 'yup'
 import { Controller, useForm } from 'react-hook-form'
-import InputField from '../../../components/formControls/InputField'
+import TextAreaField from '../../../components/formControls/TextAreaField'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ButtonOrange from '../../../components/ButtonOrange'
 import { orange } from '@mui/material/colors'
@@ -82,7 +82,7 @@ function CheckoutForm({ values, onSubmit = null }) {
                 >
                     <TextField label="Email" value={values.email} fullWidth disabled />
                 </Box>
-                <InputField
+                <TextAreaField
                     name="address"
                     label="Address"
                     form={form}

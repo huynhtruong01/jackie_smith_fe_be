@@ -1,9 +1,9 @@
-import { green, red } from '@mui/material/colors'
+import { blue, green, red } from '@mui/material/colors'
 
 export const colorMode = (mode) => {
     if (!mode) return
 
-    const modeList = ['approves', 'shipping']
+    const modeList = ['approves', 'shipping', 'successful delivery']
     if (!modeList.includes(mode)) return false
 
     let bgColor = '#fff'
@@ -16,6 +16,12 @@ export const colorMode = (mode) => {
         }
 
         case 'shipping': {
+            bgColor = blue[50]
+            textColor = blue[500]
+            break
+        }
+
+        case 'successful delivery': {
             bgColor = green[50]
             textColor = green[500]
             break

@@ -179,7 +179,7 @@ function ListPage() {
 
     // filter sort
     const handleSortChange = (value) => {
-        setFilters((prev) => ({ ...prev, sort: value }))
+        setFilters((prev) => ({ ...prev, sort: value, page: 1 }))
     }
 
     // filter search

@@ -7,7 +7,7 @@ import TrackingOrderData from '../components/TrackingOrderData'
 import CachedIcon from '@mui/icons-material/Cached'
 import ButtonOrange from '../../../components/ButtonOrange'
 import { changeToggle } from '../../../redux/toggleSlice'
-import { addTrackingOrder } from '../trackingOrderSlice'
+import { addTrackingOrder, addTrackingOrderUser } from '../trackingOrderSlice'
 
 TrackingOrderHome.propTypes = {}
 
@@ -20,9 +20,10 @@ function TrackingOrderHome() {
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
+                const { orders } = await ordersApi.getAllByUserIdOther({ userId: user._id })
+                const ordersByUserIdList = await ordersApi.getAllByUserId({ userId: user._id })
                 setTrackingOrderList(orders)
-                dispatch(addTrackingOrder(orders))
+                dispatch(addTrackingOrderUser(ordersByUserIdList.orders))
                 console.log(orders)
             } catch (error) {
                 console.log(error)

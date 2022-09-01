@@ -15,7 +15,7 @@ import cartsApi from '../../api/cartsApi'
 import ordersApi from '../../api/ordersApi'
 import { useEffect } from 'react'
 import { orange } from '@mui/material/colors'
-import { addTrackingOrder } from '../TrackingOrder/trackingOrderSlice'
+import { addTrackingOrder, addTrackingOrderUser } from '../TrackingOrder/trackingOrderSlice'
 
 PaymentStripe.propTypes = {}
 
@@ -70,7 +70,7 @@ function PaymentStripe() {
 
                 // save tracking order when select type payment
                 const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
-                dispatch(addTrackingOrder(orders))
+                dispatch(addTrackingOrderUser(orders))
 
                 // remove cart
                 dispatch(resetCart())
