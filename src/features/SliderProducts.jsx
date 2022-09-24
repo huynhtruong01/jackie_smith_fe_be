@@ -3,18 +3,18 @@ import { grey, orange } from '@mui/material/colors'
 import { useEffect, useState } from 'react'
 import { Autoplay, Navigation } from 'swiper'
 // swiper css
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import productsApi from '../api/productsApi'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { formatPrice } from '../utils/common'
 import ButtonOrange from '../components/ButtonOrange'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { formatPrice } from '../utils/common'
 
 SliderProducts.propTypes = {}
 

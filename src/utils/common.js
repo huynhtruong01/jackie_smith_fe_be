@@ -30,34 +30,39 @@ export const categoryList = async () => {
 }
 
 export const truncate = (str, number) => {
+    if (!str) return ''
     return `${str?.slice(0, number)}\u2026`
 }
 
 export const formatPrice = (x) => {
+    if (!x) return 0
     return `$${x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`
 }
 
 export const formatCapitalize = (str) => {
+    if (!str) return ''
     return str
-        .split(' ')
-        .filter((x) => !!x)
-        .map((x) => `${x[0].toUpperCase()}${x.slice(1).toLowerCase()}`)
-        .join(' ')
-        .trim()
+        ?.split(' ')
+        ?.filter((x) => !!x)
+        ?.map((x) => `${x[0].toUpperCase()}${x.slice(1).toLowerCase()}`)
+        ?.join(' ')
+        ?.trim()
 }
 
 export const formatString = (str) => {
+    if (!str) return ''
     return str
-        .split(' ')
-        .filter((x) => !!x && x.length >= 2)
-        .join(' ')
+        ?.split(' ')
+        ?.filter((x) => !!x && x.length >= 2)
+        ?.join(' ')
 }
 
 export const getNameUser = (str) => {
+    if (!str) return ''
     return str
-        .split(' ')
-        .filter((x) => !!x && x.length >= 2)
-        .slice(-1)
+        ?.split(' ')
+        ?.filter((x) => !!x && x.length >= 2)
+        ?.slice(-1)
 }
 
 export const generateDate = () => {

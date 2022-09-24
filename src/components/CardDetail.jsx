@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Box, Typography } from '@mui/material'
-import ButtonOrange from './ButtonOrange'
 import { grey, orange } from '@mui/material/colors'
+import PropTypes from 'prop-types'
+import React from 'react'
+import ButtonOrange from './ButtonOrange'
 
 CardDetail.propTypes = {}
 

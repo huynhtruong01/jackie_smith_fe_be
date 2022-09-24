@@ -3,7 +3,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { Box, IconButton } from '@mui/material'
 import { orange } from '@mui/material/colors'
 import React from 'react'
-import { Navigation, Pagination, Autoplay } from 'swiper'
+import { Autoplay, Navigation, Pagination } from 'swiper'
 // swiper css
 import 'swiper/css'
 import 'swiper/css/navigation'

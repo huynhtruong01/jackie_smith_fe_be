@@ -104,7 +104,7 @@ function Header() {
                             justifyContent: 'center',
                         }}
                     >
-                        {menuLinkList.map((menu) => (
+                        {menuLinkList?.map((menu) => (
                             <Button
                                 key={menu.name}
                                 sx={{
@@ -173,7 +173,7 @@ function Header() {
                                             },
                                         }}
                                     >
-                                        Hi, {getNameUser(user.user.fullname)}
+                                        Hi, {getNameUser(user?.user?.fullname)}
                                     </Button>
                                     <IconButton
                                         sx={{
@@ -190,7 +190,7 @@ function Header() {
                                     >
                                         <Link to="/tracking-order">
                                             <Badge
-                                                badgeContent={trackingByUserOrderList.length}
+                                                badgeContent={trackingByUserOrderList?.length || 0}
                                                 color="error"
                                             >
                                                 <NotificationsIcon />
