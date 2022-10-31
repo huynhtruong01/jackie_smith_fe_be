@@ -1,6 +1,6 @@
 import { Box, LinearProgress } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -15,6 +15,10 @@ function ForgotPassword() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleSubmit = async (values) => {
         try {

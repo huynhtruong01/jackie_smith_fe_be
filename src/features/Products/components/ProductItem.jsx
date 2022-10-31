@@ -14,7 +14,12 @@ function ProductItem({ product = {} }) {
     const user = useSelector((state) => state.user2.currentUser)
 
     return (
-        <Box border={`1px solid ${grey[200]}`} borderRadius="5px" overflow="hidden">
+        <Box
+            position="relative"
+            border={`1px solid ${grey[200]}`}
+            borderRadius="5px"
+            overflow="hidden"
+        >
             <Box
                 overflow="hidden"
                 sx={{
@@ -29,7 +34,13 @@ function ProductItem({ product = {} }) {
                 }}
             >
                 <Link to={`${pathname}/${product._id}`}>
-                    <img src={product?.image} alt={product?.name} />
+                    <img
+                        src={product?.image}
+                        alt={product?.name}
+                        onError={(e) => {
+                            e.currentTarget.src = 'https://via.placeholder.com/278x420.png'
+                        }}
+                    />
                 </Link>
             </Box>
             <Box
@@ -45,8 +56,8 @@ function ProductItem({ product = {} }) {
             >
                 <Link to={`${pathname}/${product._id}`}>
                     <Typography
-                        component="h2"
-                        variant="h5"
+                        component="h3"
+                        variant="h6"
                         fontWeight={600}
                         color={orange[400]}
                         mb="4px"
@@ -62,7 +73,7 @@ function ProductItem({ product = {} }) {
                     </Typography>
                 </Link>
                 <Box mb="16px">
-                    <Typography component="span" mr="16px" fontSize="1.3rem" fontWeight={600}>
+                    <Typography component="span" mr="16px" fontSize="1rem" fontWeight={600}>
                         {formatPrice(product?.salePrice)}
                     </Typography>
                     {product?.promotionPercent > 0 && (
@@ -70,7 +81,7 @@ function ProductItem({ product = {} }) {
                             <Typography
                                 component="span"
                                 mr="16px"
-                                fontSize="1rem"
+                                fontSize=".9rem"
                                 color={grey[500]}
                                 sx={{
                                     textDecoration: 'line-through',
@@ -80,10 +91,15 @@ function ProductItem({ product = {} }) {
                             </Typography>
                             <Typography
                                 component="span"
-                                p="4px 8px"
-                                borderRadius="3px"
-                                backgroundColor={orange[600]}
+                                p="4px 10px"
+                                borderRadius="5px"
+                                backgroundColor={orange[500]}
                                 color="#fff"
+                                sx={{
+                                    position: 'absolute',
+                                    top: '8px',
+                                    right: '8px',
+                                }}
                             >
                                 -{product?.promotionPercent}%
                             </Typography>
@@ -92,7 +108,7 @@ function ProductItem({ product = {} }) {
                 </Box>
                 <Box>
                     <Link to={`${pathname}/${product?._id}`}>
-                        <ButtonOrange text="Read more" icon={ShoppingCartIcon} />
+                        <ButtonOrange fontSize=".8rem" text="Read more" icon={ShoppingCartIcon} />
                     </Link>
                 </Box>
             </Box>

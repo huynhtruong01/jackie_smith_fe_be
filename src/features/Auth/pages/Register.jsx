@@ -1,16 +1,20 @@
 import { Box } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import authApi from '../../../api/authApi'
 import RegisterForm from '../components/RegisterForm'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { useNavigate } from 'react-router-dom'
 
 Register.propTypes = {}
 
 function Register() {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleSubmit = async (values) => {
         try {
@@ -35,7 +39,7 @@ function Register() {
             <Box
                 width="400px"
                 margin="auto"
-                p="12px"
+                p="16px"
                 backgroundColor="#fff"
                 boxShadow={`0 0 3px 3px ${grey[100]}`}
                 borderRadius="5px"

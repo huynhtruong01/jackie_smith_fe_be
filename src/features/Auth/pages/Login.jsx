@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import { grey } from '@mui/material/colors'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -8,7 +9,7 @@ import authApi from '../../../api/authApi'
 import cartsApi from '../../../api/cartsApi'
 import ordersApi from '../../../api/ordersApi'
 import { getCartFromDB, getIdCartFromDB } from '../../Cart/cartSlice'
-import { addTrackingOrder, addTrackingOrderUser } from '../../TrackingOrder/trackingOrderSlice'
+import { addTrackingOrderUser } from '../../TrackingOrder/trackingOrderSlice'
 import LoginForm from '../components/LoginForm'
 import { loginAndSaveUser } from '../userSlice'
 
@@ -19,6 +20,10 @@ const roleList = ['employee']
 function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleSubmit = async (value) => {
         try {
@@ -71,7 +76,7 @@ function Login() {
             <Box
                 width="400px"
                 margin="auto"
-                p="12px"
+                p="16px"
                 backgroundColor="#fff"
                 boxShadow={`0 0 3px 3px ${grey[100]}`}
                 borderRadius="5px"

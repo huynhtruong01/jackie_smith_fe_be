@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 ProductClearAll.propTypes = {}
 
@@ -21,7 +21,7 @@ function ProductClearAll({ filters = {}, onChange = null }) {
     }
 
     return (
-        <Box p="10px 0">
+        <Box>
             <Typography
                 variant="h6"
                 fontSize="1rem"

@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { useForm } from 'react-hook-form'
-import PasswordField from '../../../components/formControls/PasswordField'
 import { toast } from 'react-toastify'
+import * as yup from 'yup'
 import ButtonOrange from '../../../components/ButtonOrange'
+import PasswordField from '../../../components/formControls/PasswordField'
 
 ChangePasswordUserForm.propTypes = {}
 

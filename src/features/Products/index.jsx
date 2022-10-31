@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import ListPage from './pages/ListPage'
 import DetailPage from './pages/DetailPage'
+import ListPage from './pages/ListPage'
 
 Products.propTypes = {}
 
@@ -11,7 +11,7 @@ function Products() {
     window.scrollTo(0, 0)
 
     return (
-        <Box p="20px" pt="8px">
+        <Box p="20px" pt="16px">
             <Routes>
                 <Route path="" element={<ListPage />} />
                 <Route path="/:id" element={<DetailPage />} />

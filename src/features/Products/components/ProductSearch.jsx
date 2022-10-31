@@ -19,7 +19,7 @@ function ProductSearch({ onSubmit = null }) {
             sx={{
                 position: 'relative',
                 borderRadius: '5px',
-                backgroundColor: orange[100],
+                backgroundColor: '#fff',
                 overflow: 'hidden',
                 width: '300px',
             }}
@@ -28,12 +28,14 @@ function ProductSearch({ onSubmit = null }) {
                 sx={{
                     color: 'inherit',
                     '& .MuiInputBase-input': {
-                        padding: '8px',
+                        padding: '12px',
                     },
                     width: '100%',
+                    border: `2px solid ${orange[300]}`,
+                    borderRadius: '5px',
 
                     '&:hover': {
-                        backgroundColor: orange[200],
+                        backgroundColor: '#fff',
                     },
                 }}
                 value={value}
@@ -62,7 +64,7 @@ function ProductSearch({ onSubmit = null }) {
             >
                 <SearchIcon
                     sx={{
-                        color: grey[700],
+                        color: '#fff',
                     }}
                 />
             </Box>

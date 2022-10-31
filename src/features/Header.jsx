@@ -9,6 +9,7 @@ import {
     Badge,
     Box,
     Button,
+    Container,
     IconButton,
     Menu,
     MenuItem,
@@ -18,7 +19,7 @@ import {
 import { orange } from '@mui/material/colors'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getNameUser } from '../utils/common'
 import { logout } from './Auth/userSlice'
 import { totalQuantity } from './Cart/cartSelector'
@@ -37,6 +38,9 @@ function Header() {
     const trackingByUserOrderList = useSelector(
         (state) => state.trackingOrder.trackingByUserOrderList
     )
+
+    const location = useLocation()
+    console.log(location)
 
     const handleGoToCart = () => {
         dispatch(hideCart())
@@ -64,10 +68,12 @@ function Header() {
     const menuLinkList = [
         {
             link: `${user ? '/products' : '/login'}`,
+            path: '/products',
             name: 'Products',
         },
         {
             link: `${user ? '/our-community' : '/login'}`,
+            path: '/our-community',
             name: 'Our Community',
         },
     ]
@@ -78,106 +84,186 @@ function Header() {
                 position="fixed"
                 sx={{
                     boxShadow: '0 0 10px 0px rgba(0, 0, 0, 0.2)',
+                    backgroundColor: '#fff',
                 }}
             >
-                <Toolbar
+                <Container
+                    maxWidth="lg"
                     sx={{
                         backgroundColor: '#fff',
-                        '& > a': {
-                            flex: 1,
-                        },
                     }}
                 >
-                    <Link to="/">
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ flex: 1, color: orange[600], fontWeight: 600 }}
-                        >
-                            Jackie Smith
-                        </Typography>
-                    </Link>
-                    <Box
+                    <Toolbar
                         sx={{
-                            flex: 3,
-                            display: 'flex',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        {menuLinkList?.map((menu) => (
-                            <Button
-                                key={menu.name}
-                                sx={{
-                                    mr: '12px',
-
-                                    '&:hover': {
-                                        backgroundColor: orange[50],
-                                    },
-
-                                    '& > a': {
-                                        color: orange[600],
-                                        fontWeight: 500,
-                                    },
-                                }}
-                            >
-                                <Link to={menu.link}>{menu.name}</Link>
-                            </Button>
-                        ))}
-                    </Box>
-                    <Box
-                        sx={{
-                            flex: 1,
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            alignItems: 'center',
+                            backgroundColor: '#fff',
 
                             '& > a': {
-                                display: 'inline',
-                                color: '#fff',
+                                flex: 1,
                             },
                         }}
                     >
-                        {!user && (
-                            <Link to="/login">
+                        <Link to="/">
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                sx={{ flex: 1, color: orange[600], fontWeight: 600 }}
+                            >
+                                Jackie Smith
+                            </Typography>
+                        </Link>
+                        <Box
+                            sx={{
+                                flex: 3,
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            {menuLinkList.map((menu) => (
                                 <Button
-                                    variant="contained"
+                                    key={menu.name}
+                                    className={
+                                        location.pathname.startsWith(menu.path) ? 'active' : ''
+                                    }
                                     sx={{
-                                        fontWeight: 500,
-                                        backgroundColor: orange[300],
+                                        mr: '12px',
 
                                         '&:hover': {
-                                            backgroundColor: orange[600],
+                                            backgroundColor: orange[50],
+                                        },
+
+                                        '&.active': {
+                                            backgroundColor: orange[500],
+
+                                            a: {
+                                                color: '#fff',
+                                            },
+                                        },
+
+                                        '& > a': {
+                                            color: orange[600],
+                                            fontWeight: 500,
                                         },
                                     }}
                                 >
-                                    Login
+                                    <Link to={menu.link}>{menu.name}</Link>
                                 </Button>
-                            </Link>
-                        )}
-                        {user && (
-                            <>
-                                <Box mr="8px">
+                            ))}
+                        </Box>
+                        <Box
+                            sx={{
+                                flex: 1,
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                alignItems: 'center',
+
+                                '& > a': {
+                                    display: 'inline',
+                                    color: '#fff',
+                                },
+                            }}
+                        >
+                            {!user && (
+                                <Link to="/login">
                                     <Button
-                                        id="basic-button"
-                                        aria-controls={open ? 'basic-menu' : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={open ? 'true' : undefined}
-                                        onClick={handleClick}
-                                        endIcon={<ArrowDropDownIcon />}
+                                        variant="contained"
                                         sx={{
-                                            color: orange[600],
-                                            backgroundColor: orange[50],
+                                            fontWeight: 500,
+                                            backgroundColor: orange[300],
+
                                             '&:hover': {
                                                 backgroundColor: orange[600],
-                                                color: '#fff',
                                             },
                                         }}
                                     >
-                                        Hi, {getNameUser(user?.user?.fullname)}
+                                        Login
                                     </Button>
+                                </Link>
+                            )}
+                            {user && (
+                                <>
+                                    <Box mr="8px">
+                                        <Button
+                                            id="basic-button"
+                                            aria-controls={open ? 'basic-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={open ? 'true' : undefined}
+                                            onClick={handleClick}
+                                            endIcon={<ArrowDropDownIcon />}
+                                            sx={{
+                                                color: orange[600],
+                                                backgroundColor: orange[50],
+                                                '&:hover': {
+                                                    backgroundColor: orange[600],
+                                                    color: '#fff',
+                                                },
+                                            }}
+                                        >
+                                            Hi, {getNameUser(user.user.fullname)}
+                                        </Button>
+                                        <IconButton
+                                            sx={{
+                                                ml: '8px',
+                                                '&:hover': {
+                                                    backgroundColor: orange[50],
+                                                },
+                                                '& svg': {
+                                                    color: orange[500],
+                                                    width: '1.7rem',
+                                                    height: '1.7rem',
+                                                },
+                                            }}
+                                        >
+                                            <Link to="/tracking-order">
+                                                <Badge
+                                                    badgeContent={trackingByUserOrderList.length}
+                                                    color="error"
+                                                >
+                                                    <NotificationsIcon />
+                                                </Badge>
+                                            </Link>
+                                        </IconButton>
+                                        <Menu
+                                            id="basic-menu"
+                                            anchorEl={anchorEl}
+                                            open={open}
+                                            onClose={handleClose}
+                                            MenuListProps={{
+                                                'aria-labelledby': 'basic-button',
+                                            }}
+                                        >
+                                            <MenuItem
+                                                onClick={handleClose}
+                                                sx={{
+                                                    width: '100%',
+                                                    p: '8px 10px 8px 7px',
+                                                }}
+                                            >
+                                                <SettingsIcon
+                                                    sx={{
+                                                        mr: '12px',
+                                                        color: orange[500],
+                                                    }}
+                                                />
+                                                <Link to="/account">Setting</Link>
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={handleLogout}
+                                                sx={{
+                                                    p: '8px 10px 8px 6px',
+                                                }}
+                                            >
+                                                <ExitToAppIcon
+                                                    sx={{
+                                                        mr: '12px',
+                                                        color: orange[500],
+                                                    }}
+                                                />
+                                                Logout
+                                            </MenuItem>
+                                        </Menu>
+                                    </Box>
                                     <IconButton
                                         sx={{
-                                            ml: '8px',
                                             '&:hover': {
                                                 backgroundColor: orange[50],
                                             },
@@ -188,115 +274,55 @@ function Header() {
                                             },
                                         }}
                                     >
-                                        <Link to="/tracking-order">
+                                        <Link to="/cart">
                                             <Badge
-                                                badgeContent={trackingByUserOrderList?.length || 0}
+                                                badgeContent={totalQuantityCart || '0'}
                                                 color="error"
                                             >
-                                                <NotificationsIcon />
+                                                <ShoppingCartIcon />
                                             </Badge>
                                         </Link>
                                     </IconButton>
-                                    <Menu
-                                        id="basic-menu"
-                                        anchorEl={anchorEl}
-                                        open={open}
-                                        onClose={handleClose}
-                                        MenuListProps={{
-                                            'aria-labelledby': 'basic-button',
-                                        }}
-                                    >
-                                        <MenuItem
-                                            onClick={handleClose}
-                                            sx={{
-                                                width: '100%',
-                                                p: '8px 10px 8px 7px',
-                                            }}
-                                        >
-                                            <SettingsIcon
-                                                sx={{
-                                                    mr: '12px',
-                                                    color: orange[500],
-                                                }}
-                                            />
-                                            <Link to="/account">Setting</Link>
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={handleLogout}
-                                            sx={{
-                                                p: '8px 10px 8px 6px',
-                                            }}
-                                        >
-                                            <ExitToAppIcon
-                                                sx={{
-                                                    mr: '12px',
-                                                    color: orange[500],
-                                                }}
-                                            />
-                                            Logout
-                                        </MenuItem>
-                                    </Menu>
-                                </Box>
-                                <IconButton
-                                    sx={{
-                                        '&:hover': {
-                                            backgroundColor: orange[50],
-                                        },
-                                        '& svg': {
-                                            color: orange[500],
-                                            width: '1.7rem',
-                                            height: '1.7rem',
-                                        },
-                                    }}
-                                >
-                                    <Link to="/cart">
-                                        <Badge
-                                            badgeContent={totalQuantityCart || '0'}
-                                            color="error"
-                                        >
-                                            <ShoppingCartIcon />
-                                        </Badge>
-                                    </Link>
-                                </IconButton>
-                            </>
-                        )}
-                    </Box>
-                    <Box
-                        className={isShowCart ? 'active' : ''}
-                        display="flex"
-                        alignItems="center"
-                        color={orange[500]}
-                        position="fixed"
-                        top="64px"
-                        right="10px"
-                        backgroundColor="#fff"
-                        p="8px 16px"
-                        borderRadius="3px"
-                        border={`1px solid ${orange[500]}`}
-                        sx={{
-                            cursor: 'pointer',
-                            transform: 'scale(0)',
-                            transition: '.3s ease-in-out',
-
-                            '&:hover': {
-                                color: '#fff',
-                                backgroundColor: orange[500],
-                            },
-
-                            '&.active': {
-                                transform: 'scale(1)',
-                            },
-                        }}
-                        onClick={handleGoToCart}
-                    >
-                        <CheckCircleIcon
+                                </>
+                            )}
+                        </Box>
+                        <Box
+                            className={isShowCart ? 'active' : ''}
+                            display="flex"
+                            alignItems="center"
+                            color={orange[500]}
+                            position="fixed"
+                            top="64px"
+                            right="10px"
+                            backgroundColor="#fff"
+                            p="8px 16px"
+                            borderRadius="3px"
+                            border={`1px solid ${orange[500]}`}
                             sx={{
-                                mr: '8px',
+                                cursor: 'pointer',
+                                transform: 'scale(0)',
+                                transition: '.3s ease-in-out',
+
+                                '&:hover': {
+                                    color: '#fff',
+                                    backgroundColor: orange[500],
+                                },
+
+                                '&.active': {
+                                    transform: 'scale(1)',
+                                },
                             }}
-                        />
-                        <span>Go to cart to see more</span>
-                    </Box>
-                </Toolbar>
+                            onClick={handleGoToCart}
+                        >
+                            <CheckCircleIcon
+                                sx={{
+                                    mr: '8px',
+                                }}
+                            />
+                            <span>Go to cart to see more</span>
+                        </Box>
+                    </Toolbar>
+                </Container>
             </AppBar>
         </Box>
     )

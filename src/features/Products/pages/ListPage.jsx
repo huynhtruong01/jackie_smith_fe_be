@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Skeleton } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { useEffect, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
@@ -17,6 +17,8 @@ import ProductList from '../components/ProductList'
 import ProductPagination from '../components/ProductPagination'
 import ProductSearch from '../components/ProductSearch'
 import CategoryListSkeleton from '../components/Skeleton/CategoryListSkeleton'
+import FilterByPriceSkeleton from '../components/Skeleton/FilterByPriceSkeleton'
+import FilterSortSkeleton from '../components/Skeleton/FilterSortSkeleton'
 import ProductListSkeleton from '../components/Skeleton/ProductListSkeleton'
 
 ListPage.propTypes = {}
@@ -46,8 +48,8 @@ function ListPage() {
 
     useEffect(() => {
         const getProducts = async () => {
-            setLoading(true)
             try {
+                setLoading(true)
                 const { products, totalCount } = await productsApi.getAll(filters)
                 if (filters['salePrice[gte]'] || filters['salePrice[lte]']) {
                     let count = null
@@ -60,7 +62,7 @@ function ListPage() {
 
                 setProductList(products)
                 setPagination(totalCount)
-                console.log(products, totalCount)
+                // console.log(products, totalCount)
             } catch (error) {
                 console.log('Error: ', error)
             }
@@ -190,14 +192,25 @@ function ListPage() {
     return (
         <Box>
             <Box mb="16px">
-                <ProductSearch onSubmit={handleSearch} />
+                {loading && (
+                    <Skeleton
+                        variant="rounded"
+                        width="300px"
+                        height="49px"
+                        sx={{
+                            borderRadius: '5px',
+                        }}
+                    />
+                )}
+                {!loading && <ProductSearch onSubmit={handleSearch} />}
             </Box>
             <Box display="flex" gap="16px">
                 <Box flex={1} position="relative">
                     <Box
+                        className="filters"
                         p="12px"
                         position="sticky"
-                        top="100px"
+                        top="80px"
                         overflow="auto"
                         height="100vh"
                         pb="100px"
@@ -205,13 +218,22 @@ function ListPage() {
                         borderRadius="5px"
                     >
                         <Box>
-                            <ProductClearAll filters={filters} onChange={handleClearAllChange} />
+                            <Box p="12px 0">
+                                {loading && <Skeleton width="100px" height="25px" variant="text" />}
+                                {!loading && (
+                                    <ProductClearAll
+                                        filters={filters}
+                                        onChange={handleClearAllChange}
+                                    />
+                                )}
+                            </Box>
                             <Box>
                                 <ProductFilter
                                     filters={filters}
                                     title="Categories"
                                     api={categoriesApi}
                                     onChange={handleFilterCategory}
+                                    loading={loading}
                                 />
                             </Box>
                             <Box p="10px 0" borderTop={`1px solid ${grey[300]}`}>
@@ -232,24 +254,32 @@ function ListPage() {
                                     isColor={true}
                                 />
                             </Box>
-                            <FilterByPrice onClick={handleFilterPrice} />
+                            <Box borderTop={`1px solid ${grey[300]}`} p="16px 0">
+                                {loading && <FilterByPriceSkeleton />}
+                                {!loading && <FilterByPrice onClick={handleFilterPrice} />}
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
                 <Box flex={4} backgroundColor="#fff" p="12px" borderRadius="5px">
-                    <FilterSort filters={filters} onChange={handleSortChange} />
-                    {productList?.length > 0 && (
-                        <>
-                            <ProductList productList={productList} />
-                            <ProductPagination
-                                count={pagination}
-                                page={filters.page}
-                                onChange={handlePaginationChange}
-                            />
-                        </>
-                    )}
-                    {loading && <ProductListSkeleton limit={filters.limit} />}
-                    {!loading && productList?.length === 0 && <ProductEmpty />}
+                    <Box mb="27px">
+                        {loading && <FilterSortSkeleton />}
+                        {!loading && <FilterSort filters={filters} onChange={handleSortChange} />}
+                    </Box>
+                    <Box>
+                        {productList?.length > 0 && !loading && (
+                            <>
+                                <ProductList productList={productList} />
+                                <ProductPagination
+                                    count={pagination}
+                                    page={filters.page}
+                                    onChange={handlePaginationChange}
+                                />
+                            </>
+                        )}
+                        {loading && <ProductListSkeleton limit={filters.limit} />}
+                        {!loading && productList?.length === 0 && <ProductEmpty />}
+                    </Box>
                 </Box>
             </Box>
         </Box>

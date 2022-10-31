@@ -1,14 +1,14 @@
 import { Box, Typography } from '@mui/material'
+import { grey, orange } from '@mui/material/colors'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import productsApi from '../../../api/productsApi'
-import { orange, grey } from '@mui/material/colors'
-import { formatCapitalize, formatPrice } from '../../../utils/common'
-import QuantityForm from '../components/QuantityForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCartList, showCart } from '../../Cart/cartSlice'
+import { useParams } from 'react-router-dom'
 import cartsApi from '../../../api/cartsApi'
+import productsApi from '../../../api/productsApi'
+import { formatCapitalize, formatPrice } from '../../../utils/common'
 import { clothingSizeList, sneakerSizeList } from '../../../utils/size'
+import { setCartList, showCart } from '../../Cart/cartSlice'
+import QuantityForm from '../components/QuantityForm'
 
 DetailPage.propTypes = {}
 
@@ -21,7 +21,11 @@ function DetailPage() {
     const cartList = useSelector((state) => state.cart.cartList)
     const user = useSelector((state) => state.user2.currentUser)
 
-    console.log(cartList)
+    // console.log(cartList)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     useEffect(() => {
         const getProduct = async () => {
@@ -67,7 +71,7 @@ function DetailPage() {
         }
     }
 
-    console.log(product)
+    // console.log(product)
 
     return (
         <Box>
@@ -78,7 +82,13 @@ function DetailPage() {
                     overflow="hidden"
                     flex={1}
                 >
-                    <img src={product?.image} alt={product?.name} />
+                    <img
+                        src={product?.image}
+                        alt={product?.name}
+                        onError={(e) => {
+                            e.currentTarget.src = 'https://via.placeholder.com/250'
+                        }}
+                    />
                 </Box>
                 <Box p="16px 26px" backgroundColor="#fff" borderRadius="5px" flex={3}>
                     <Typography

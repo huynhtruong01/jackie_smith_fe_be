@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardDetail from '../components/CardDetail'
 import CategoryList from '../components/CategoryList'
 import SwiperSlider from '../components/SwiperSlider'
@@ -25,7 +25,7 @@ function Home() {
     }, [])
 
     return (
-        <Box p="0 20px">
+        <Box>
             <SwiperSlider data={sliders} />
             <CategoryList categoryList={categories} />
             <CardDetail

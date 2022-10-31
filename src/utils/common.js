@@ -10,7 +10,7 @@ export const sliders = [
 const imgCategoryList = [
     'https://cdn.shopify.com/s/files/1/0208/1956/products/CP01983MJA01Z99_BAJA_A_360x.jpg?v=1651667301',
     'https://cdn.shopify.com/s/files/1/0208/1956/products/CPV1990RMD021TU_baja_a_360x.jpg?v=1629212354',
-    'https://cdn.shopify.com/s/files/1/0208/1956/products/CJ52080DEC89E_BAJA_A_360x.jpg?v=1651772494',
+    'https://cdn.shopify.com/s/files/1/0208/1956/products/SWL1966LNA04F_BAJA_A_360x.jpg?v=1654614468',
     'https://cdn.shopify.com/s/files/1/0208/1956/products/0020526LOA05N_Baja_a_360x.jpg?v=1626099521',
 ]
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Box, Tabs, Tab } from '@mui/material'
+import { Box, Tab, Tabs } from '@mui/material'
 import { orange } from '@mui/material/colors'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
 FilterSort.propTypes = {}
 
@@ -12,7 +12,7 @@ function FilterSort({ filters, onChange = null }) {
     }
 
     return (
-        <Box mb="22px">
+        <Box>
             <Tabs
                 value={filters.sort}
                 onChange={handleChange}

@@ -1,11 +1,11 @@
 import { Box, Paper, Table, TableBody, TableContainer, TableRow } from '@mui/material'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import categoriesApi from '../../../api/categoriesApi'
 import colorsApi from '../../../api/colorsApi'
 import ordersApi from '../../../api/ordersApi'
 import stylesApi from '../../../api/stylesApi'
+import LoadingCircle from '../../../components/Loading/LoadingCircle'
 import TableDataBody from '../../../components/TableData/TableDataBody'
 import TableHeader from '../../../components/TableData/TableHeader'
 import { formatColor } from '../../../utils/color'
@@ -16,11 +16,15 @@ TrackingOrderDetail.propTypes = {}
 function TrackingOrderDetail() {
     const { id } = useParams()
     const [productList, setProductList] = useState([])
+    const [loading, setLoading] = useState(false)
+
     console.log(id)
 
     useEffect(() => {
         const getOrder = async () => {
             try {
+                setLoading(true)
+
                 const order = await ordersApi.getById(id)
                 const newProductList = await order.items.map(async (x) => {
                     const category = await categoriesApi.getById(x.product.category)
@@ -46,6 +50,8 @@ function TrackingOrderDetail() {
             } catch (error) {
                 console.log(error)
             }
+
+            setLoading(false)
         }
 
         getOrder()
@@ -53,23 +59,28 @@ function TrackingOrderDetail() {
 
     const dataHeader = ['Id', 'Image', 'Name', 'Category', 'Price', 'Quantity', 'Color', 'Style']
 
-    console.log(productList)
+    // console.log(productList)
 
     return (
-        <Box>
-            <TableContainer component={Paper}>
-                <Table sx={{ width: '100%' }}>
-                    <TableHeader data={dataHeader} />
-                    <TableBody>
-                        {productList.length !== 0 &&
-                            productList?.map((x, index) => (
-                                <TableRow key={`${x.id}${index}`}>
-                                    <TableDataBody data={x} />
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+        <Box p="16px 0">
+            {loading && <LoadingCircle />}
+            {!loading && (
+                <>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ width: '100%' }}>
+                            <TableHeader data={dataHeader} />
+                            <TableBody>
+                                {productList.length !== 0 &&
+                                    productList?.map((x, index) => (
+                                        <TableRow key={`${x.id}${index}`}>
+                                            <TableDataBody data={x} />
+                                        </TableRow>
+                                    ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </>
+            )}
         </Box>
     )
 }

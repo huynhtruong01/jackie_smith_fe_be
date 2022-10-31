@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Box, Paper, Table, TableBody, TableContainer, TableRow } from '@mui/material'
+import PropTypes from 'prop-types'
+import React from 'react'
+import TableDataBody from '../../../components/TableData/TableDataBody'
 import TableHeader from '../../../components/TableData/TableHeader'
 import { formatPrice } from '../../../utils/common'
-import TableDataBody from '../../../components/TableData/TableDataBody'
 
 TrackingOrderData.propTypes = {}
 
@@ -21,7 +21,7 @@ function TrackingOrderData({ trackingOrderList = [] }) {
     ]
 
     const dataBody = trackingOrderList.map((order) => ({
-        id: order?._id,
+        id: `${order?._id}`,
         name: order?.fullname,
         email: order?.email,
         address: order?.address,

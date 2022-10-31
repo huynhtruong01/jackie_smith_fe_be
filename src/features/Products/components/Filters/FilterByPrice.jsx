@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Box, TextField, FormHelperText, Typography } from '@mui/material'
+import { Box, FormHelperText, TextField, Typography } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import ButtonOrange from '../../../../components/ButtonOrange'
 
 FilterByPrice.propTypes = {}
@@ -33,7 +33,7 @@ function FilterByPrice({ onClick = null }) {
     }
 
     return (
-        <Box borderTop={`1px solid ${grey[300]}`} p="16px 0">
+        <Box>
             <Typography
                 variant="h6"
                 component="h3"
