@@ -135,7 +135,7 @@ function TrackingOrderDetail() {
                         <Box>
                             <ButtonOrange
                                 icon={DeleteIcon}
-                                disabled={selected.length === 0 && modeOrder !== 'approves'}
+                                disabled={selected.length === 0 && modeOrder === 'approves'}
                                 text={
                                     selected.length < productList.length ? 'Delete' : 'Delete all'
                                 }

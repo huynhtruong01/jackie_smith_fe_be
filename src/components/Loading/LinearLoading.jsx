@@ -5,9 +5,9 @@ import React from 'react'
 
 LinearLoading.propTypes = {}
 
-function LinearLoading(props) {
+function LinearLoading({ top = 0 }) {
     return (
-        <Box sx={{ width: '100%', position: 'absolute', top: 0 }}>
+        <Box sx={{ width: '100%', position: 'absolute', top }}>
             <LinearProgress
                 sx={{
                     backgroundColor: orange[100],
