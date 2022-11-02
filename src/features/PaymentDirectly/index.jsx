@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import cartsApi from '../../api/cartsApi'
 import ordersApi from '../../api/ordersApi'
 import ButtonOrange from '../../components/ButtonOrange'
+import LinearLoading from '../../components/Loading/LinearLoading'
 import { resetCart } from '../Cart/cartSlice'
 import { resetCheckout } from '../Checkout/checkoutSlice'
 import { addTrackingOrder, addTrackingOrderUser } from '../TrackingOrder/trackingOrderSlice'
@@ -15,6 +16,7 @@ import { addTrackingOrder, addTrackingOrderUser } from '../TrackingOrder/trackin
 PaymentDirectly.propTypes = {}
 
 function PaymentDirectly() {
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const checkoutValues = useSelector((state) => state.checkout.checkout)
@@ -33,6 +35,7 @@ function PaymentDirectly() {
 
     const handleOrder = async () => {
         try {
+            setLoading(true)
             const orderItem = {
                 userId: user._id,
                 fullname: checkoutValues.fullname,
@@ -46,7 +49,7 @@ function PaymentDirectly() {
                 mode: 'approves',
             }
 
-            console.log(idCart)
+            // console.log(idCart)
 
             // remove cart database
             await cartsApi.remove(idCart)
@@ -56,8 +59,6 @@ function PaymentDirectly() {
             // save tracking order when select type payment
             const { orders } = await ordersApi.getAllByUserId({ userId: user._id })
             dispatch(addTrackingOrderUser(orders))
-
-            console.log(orders)
 
             // remove cart
             dispatch(resetCart())
@@ -77,16 +78,22 @@ function PaymentDirectly() {
                 theme: 'colored',
             })
         }
+
+        setLoading(false)
     }
 
     return (
         <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            height="300px"
+            sx={{
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '300px',
+            }}
         >
+            {loading && <LinearLoading />}
             <Typography width="550px" textAlign="center" mb="16px">
                 Your order will pay directly when you receive your order. Thank you for buying the
                 product at our store. Back to{' '}
@@ -107,7 +114,7 @@ function PaymentDirectly() {
                 </Typography>
             </Typography>
             <Box onClick={handleOrder}>
-                <ButtonOrange text="Payment" />
+                <ButtonOrange disabled={loading} text="Payment" />
             </Box>
             <ToastContainer />
         </Box>

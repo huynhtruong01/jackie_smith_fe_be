@@ -39,12 +39,13 @@ function ScrollTop() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: orange[500],
-                borderRadius: '5px',
+                borderRadius: '50%',
                 fontSize: '20px',
-                width: '40px',
+                width: '50px',
                 height: '50px',
                 cursor: 'pointer',
                 boxShadow: '0 10px 10px #00000033',
+                zIndex: 10,
                 transition: '.4s ease-in-out',
 
                 '&.active': {

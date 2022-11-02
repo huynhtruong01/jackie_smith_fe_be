@@ -47,6 +47,10 @@ function ListPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [loading])
+
+    useEffect(() => {
         const getProducts = async () => {
             try {
                 setLoading(true)
@@ -214,7 +218,7 @@ function ListPage() {
                 <Box flex={1} position="relative">
                     <Box
                         className="filters"
-                        p="12px"
+                        p="16px"
                         position="sticky"
                         top="80px"
                         overflow="auto"
@@ -224,7 +228,7 @@ function ListPage() {
                         borderRadius="5px"
                     >
                         <Box>
-                            <Box p="12px 0">
+                            <Box pb="12px">
                                 {loading && <Skeleton width="100px" height="25px" variant="text" />}
                                 {!loading && (
                                     <ProductClearAll

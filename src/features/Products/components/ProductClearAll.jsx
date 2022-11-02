@@ -30,13 +30,20 @@ function ProductClearAll({ filters = {}, onChange = null }) {
                 sx={{
                     display: 'inline-block',
                     cursor: 'pointer',
+                    fontWeight: 600,
+                    padding: '8px',
+                    backgroundColor: orange[50],
+                    borderRadius: '5px',
+                    transition: '.2s ease-in-out',
+
                     '&:hover': {
-                        textDecoration: 'underline',
+                        color: '#fff',
+                        backgroundColor: orange[500],
                     },
                 }}
                 onClick={handleChange}
             >
-                Clear all
+                Clear filter
             </Typography>
         </Box>
     )

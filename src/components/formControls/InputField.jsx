@@ -28,7 +28,7 @@ function InputField({ name, label, form, placeholder = '', disabled = false }) {
                             '& label.Mui-focused': {
                                 color: orange[500],
                             },
-                            '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            '& div.Mui-focused .MuiOutlinedInput-notchedOutline': {
                                 borderColor: orange[500],
                             },
                         }}

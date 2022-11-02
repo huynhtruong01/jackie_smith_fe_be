@@ -2,7 +2,7 @@ import KeyIcon from '@mui/icons-material/Key'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { Avatar, Box, TextField, Typography } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ButtonOrange from '../components/ButtonOrange'
@@ -20,6 +20,10 @@ const userObj = {
 function AccountInfo() {
     const user = useSelector((state) => state.user2.currentUser.user)
     const { _id, createdAt, updatedAt, role, __v, ...newUser } = user
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <Box pt="50px">

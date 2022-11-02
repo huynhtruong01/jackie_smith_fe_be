@@ -1,17 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ChangeInfoForm from './components/ChangeInfoForm'
-import usersApi from '../../api/usersApi'
-import { loginAndSaveUser } from '../Auth/userSlice'
+import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useNavigate } from 'react-router-dom'
+import usersApi from '../../api/usersApi'
+import { loginAndSaveUser } from '../Auth/userSlice'
+import ChangeInfoForm from './components/ChangeInfoForm'
 
 ChangeInfo.propTypes = {}
 
-function ChangeInfo(props) {
+function ChangeInfo() {
     const user = useSelector((state) => state.user2?.currentUser.user)
     const currentUser = useSelector((state) => state.user2?.currentUser)
     const dispatch = useDispatch()
@@ -20,6 +20,10 @@ function ChangeInfo(props) {
         fullname: user.fullname,
         email: user.email,
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleSubmit = async (values) => {
         try {

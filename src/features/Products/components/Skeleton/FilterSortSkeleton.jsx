@@ -13,9 +13,17 @@ function FilterSortSkeleton() {
                 height={48}
                 sx={{
                     mr: '8px',
+                    borderRadius: '5px',
                 }}
             />
-            <Skeleton variant="rounded" width={180} height={48} />
+            <Skeleton
+                variant="rounded"
+                width={180}
+                height={48}
+                sx={{
+                    borderRadius: '5px',
+                }}
+            />
         </Box>
     )
 }

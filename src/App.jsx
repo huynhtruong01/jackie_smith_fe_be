@@ -53,7 +53,7 @@ function App() {
                     position: 'relative',
                     pt: '64px',
                     backgroundColor: grey[50],
-                    minHeight: 'calc(100vh - 64px)',
+                    minHeight: '100vh',
                 }}
             >
                 <Routes>
