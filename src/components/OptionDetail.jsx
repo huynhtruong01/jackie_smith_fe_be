@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Box } from '@mui/material'
 import { green } from '@mui/material/colors'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 OptionDetail.propTypes = {}
@@ -27,6 +27,11 @@ function OptionDetail({ data }) {
                     p: '5px',
                     cursor: 'pointer',
                     mr: '5px',
+                    transition: '.2s ease-in-out',
+
+                    '& > a': {
+                        display: 'inline-flex',
+                    },
 
                     '& > svg': {
                         color: green[500],

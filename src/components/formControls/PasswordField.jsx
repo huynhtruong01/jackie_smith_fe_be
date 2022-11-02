@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
     Box,
     FormControl,
-    InputLabel,
-    OutlinedInput,
+    FormHelperText,
     IconButton,
     InputAdornment,
-    FormHelperText,
+    InputLabel,
+    OutlinedInput,
 } from '@mui/material'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { orange } from '@mui/material/colors'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 PasswordField.propTypes = {}
 
-function PasswordField({ name, label, form, placeholder = '' }) {
+function PasswordField({ name, label, form, placeholder = '', disabled = false }) {
     const [showPassword, setShowPassword] = useState(false)
     const { control, formState } = form
     const error = formState.errors[name]
@@ -31,13 +32,23 @@ function PasswordField({ name, label, form, placeholder = '' }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <FormControl fullWidth variant="outlined" error={!!error}>
-                        <InputLabel htmlFor="password">{label}</InputLabel>
+                        <InputLabel
+                            htmlFor="password"
+                            sx={{
+                                '&.Mui-focused': {
+                                    color: orange[500],
+                                },
+                            }}
+                        >
+                            {label}
+                        </InputLabel>
                         <OutlinedInput
                             id="password"
                             type={showPassword ? 'text' : 'password'}
                             value={value}
                             onChange={onChange}
                             label={label}
+                            disabled={disabled}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -49,6 +60,11 @@ function PasswordField({ name, label, form, placeholder = '' }) {
                                     </IconButton>
                                 </InputAdornment>
                             }
+                            sx={{
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: orange[500],
+                                },
+                            }}
                         />
                         <FormHelperText>{error?.message}</FormHelperText>
                     </FormControl>

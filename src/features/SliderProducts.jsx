@@ -5,6 +5,7 @@ import { Autoplay, Navigation } from 'swiper'
 // swiper css
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
@@ -14,22 +15,27 @@ import 'swiper/css/scrollbar'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import productsApi from '../api/productsApi'
 import ButtonOrange from '../components/ButtonOrange'
+import SliderSkeleton from '../components/Loading/SliderSkeleton'
 import { formatPrice } from '../utils/common'
 
 SliderProducts.propTypes = {}
 
 function SliderProducts() {
     const [productList, setProductList] = useState([])
+    const [loading, setLoading] = useState(true)
     const user = useSelector((state) => state.user2.currentUser)
 
     useEffect(() => {
         const getProducts = async () => {
             try {
+                setLoading(true)
                 const { products } = await productsApi.getAll({ limit: 8 })
                 setProductList(products)
             } catch (error) {
                 console.log('Error: ', error)
             }
+
+            setLoading(false)
         }
 
         getProducts()
@@ -82,117 +88,156 @@ function SliderProducts() {
                             a: {
                                 color: orange[400],
                                 fontSize: '16px',
+                                display: 'flex',
+                                alignItems: 'center',
+
+                                '& svg': {
+                                    opacity: 0,
+                                    visibility: 'hidden',
+                                    transition: '.2s ease-in-out',
+                                },
 
                                 '&:hover': {
                                     color: orange[600],
                                     textDecoration: 'underline',
+
+                                    svg: {
+                                        opacity: 1,
+                                        visibility: 'visible',
+                                    },
                                 },
                             },
                         }}
                     >
-                        <Link to="/products">Show more</Link>
+                        <Link to="/products">
+                            Show more <KeyboardDoubleArrowRightIcon />
+                        </Link>
                     </Box>
                 </Box>
-                {productList?.length > 0 && (
-                    <Box>
-                        <Swiper
-                            modules={[Navigation, Autoplay]}
-                            autoplay={{
-                                delay: 1500,
-                            }}
-                            loop={true}
-                            spaceBetween={10}
-                            slidesPerView={3}
-                            navigation={{
-                                prevEl: '.btn-prev',
-                                nextEl: '.btn-next',
-                            }}
-                        >
-                            {productList?.map((product) => (
-                                <SwiperSlide key={product._id}>
-                                    <Box
-                                        display="flex"
-                                        p="12px"
-                                        backgroundColor={grey[100]}
-                                        borderRadius="8px"
-                                        minHeight="150px"
-                                    >
+                <>
+                    {loading && <SliderSkeleton />}
+                    {!loading && productList?.length > 0 && (
+                        <Box>
+                            <Swiper
+                                modules={[Navigation, Autoplay]}
+                                autoplay={{
+                                    delay: 1500,
+                                }}
+                                loop={true}
+                                spaceBetween={10}
+                                slidesPerView={3}
+                                navigation={{
+                                    prevEl: '.btn-prev',
+                                    nextEl: '.btn-next',
+                                }}
+                            >
+                                {productList?.map((product) => (
+                                    <SwiperSlide key={product._id}>
                                         <Box
-                                            width="150px"
-                                            mr="16px"
-                                            borderRadius="8px"
-                                            overflow="hidden"
+                                            sx={{
+                                                display: 'flex',
+                                                p: '12px',
+                                                backgroundColor: grey[100],
+                                                borderRadius: '8px',
+                                                minHeight: '150px',
+                                            }}
                                         >
-                                            <img
-                                                src={product.image}
-                                                alt={product.name}
-                                                onError={(e) => {
-                                                    e.currentTarget.src =
-                                                        'https://via.placeholder.com/150x90.png'
+                                            <Box
+                                                sx={{
+                                                    width: '150px',
+                                                    mr: '16px',
+                                                    borderRadius: '8px',
+                                                    overflow: 'hidden',
                                                 }}
-                                            />
-                                        </Box>
-                                        <Box position="relative">
-                                            <Typography
-                                                variant="h6"
-                                                component="h3"
-                                                fontSize="1rem"
-                                                fontWeight={700}
-                                                color={orange[300]}
                                             >
-                                                {product.name}
-                                            </Typography>
-                                            <Box mb="16px">
-                                                <Typography
-                                                    component="span"
-                                                    fontWeight={600}
-                                                    mr="10px"
-                                                >
-                                                    {formatPrice(product.salePrice)}
-                                                </Typography>
-                                                {product.promotionPercent > 0 && (
-                                                    <>
-                                                        <Typography
-                                                            component="span"
-                                                            mr="16px"
-                                                            fontSize="14px"
-                                                            sx={{
-                                                                textDecoration: 'line-through',
-                                                                color: grey[600],
-                                                            }}
-                                                        >
-                                                            {formatPrice(product.originalPrice)}
-                                                        </Typography>
-                                                        <Typography
-                                                            component="span"
-                                                            color={orange[600]}
-                                                            fontWeight={600}
-                                                            fontSize="14px"
-                                                        >
-                                                            -{product.promotionPercent}%
-                                                        </Typography>
-                                                    </>
-                                                )}
+                                                <img
+                                                    src={product.image}
+                                                    alt={product.name}
+                                                    onError={(e) => {
+                                                        e.currentTarget.src =
+                                                            'https://via.placeholder.com/150x90.png'
+                                                    }}
+                                                />
                                             </Box>
-                                            <Box position="absolute" bottom="8px">
-                                                <Link
-                                                    to={
-                                                        user ? `/products/${product._id}` : '/login'
-                                                    }
+                                            <Box position="relative">
+                                                <Typography
+                                                    variant="h6"
+                                                    component="h3"
+                                                    sx={{
+                                                        fontSize: '1rem',
+                                                        fontWeight: 700,
+                                                        color: orange[300],
+                                                    }}
                                                 >
-                                                    <ButtonOrange
-                                                        fontSize=".8rem"
-                                                        text="Read more"
-                                                    />
-                                                </Link>
+                                                    {product.name}
+                                                </Typography>
+                                                <Box
+                                                    sx={{
+                                                        mb: '16px',
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        component="span"
+                                                        sx={{
+                                                            fontWeight: 600,
+                                                            mr: '10px',
+                                                        }}
+                                                    >
+                                                        {formatPrice(product.salePrice)}
+                                                    </Typography>
+                                                    {product.promotionPercent > 0 && (
+                                                        <>
+                                                            <Typography
+                                                                component="span"
+                                                                sx={{
+                                                                    textDecoration: 'line-through',
+                                                                    color: grey[600],
+                                                                    mr: '16px',
+                                                                    fontSize: '.8rem',
+                                                                }}
+                                                            >
+                                                                {formatPrice(product.originalPrice)}
+                                                            </Typography>
+                                                            <Typography
+                                                                component="span"
+                                                                sx={{
+                                                                    color: orange[600],
+                                                                    fontWeight: 600,
+                                                                    fontSize: '.8rem',
+                                                                }}
+                                                            >
+                                                                -{product.promotionPercent}%
+                                                            </Typography>
+                                                        </>
+                                                    )}
+                                                </Box>
+                                                <Box
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        bottom: '8px',
+                                                    }}
+                                                >
+                                                    <Link
+                                                        to={
+                                                            user
+                                                                ? `/products/${product._id}`
+                                                                : '/login'
+                                                        }
+                                                    >
+                                                        <ButtonOrange
+                                                            fontSize=".8rem"
+                                                            text="Read more"
+                                                        />
+                                                    </Link>
+                                                </Box>
                                             </Box>
                                         </Box>
-                                    </Box>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </Box>
-                )}
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </Box>
+                    )}
+                </>
             </Container>
         </Box>
     )

@@ -14,7 +14,6 @@ function TableDataBody({ data = {} }) {
         <>
             {Object.values({ ...newData }).map((x, index) => {
                 const checkMode = colorMode(x) ? colorMode(x) : false
-                console.log(x)
 
                 return (
                     <TableCell align="center" key={`${x}${index}`}>
@@ -29,15 +28,33 @@ function TableDataBody({ data = {} }) {
                         {x[0] === '#' && <BoxColor color={x} />}
                         {x?.toString()?.startsWith('http') && (
                             <Box display="flex" justifyContent="center" alignItems="center">
-                                <Box width="70px">
-                                    <img src={x} alt="" />
+                                <Box
+                                    width="70px"
+                                    sx={{
+                                        img: {
+                                            borderRadius: '5px',
+                                        },
+                                    }}
+                                >
+                                    <img
+                                        src={x}
+                                        alt=""
+                                        onError={(e) => {
+                                            e.currentTarget.src =
+                                                'https://via.placeholder.com/300x450'
+                                        }}
+                                    />
                                 </Box>
                             </Box>
                         )}
                     </TableCell>
                 )
             })}
-            <TableCell>{type === 'tracking order' && <OptionDetail data={data} />}</TableCell>
+            {type === 'tracking order' && (
+                <TableCell>
+                    <OptionDetail data={data} />
+                </TableCell>
+            )}
         </>
     )
 }

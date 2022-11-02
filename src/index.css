@@ -6,8 +6,14 @@
     box-sizing: border-box;
 }
 
+::selection {
+    background-color: #ff9800;
+    color: #fff;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
+    line-height: 24px;
 }
 
 a {
@@ -31,6 +37,10 @@ ul {
 
 button {
     outline: none;
+}
+
+svg {
+    display: block;
 }
 
 ::-webkit-scrollbar {

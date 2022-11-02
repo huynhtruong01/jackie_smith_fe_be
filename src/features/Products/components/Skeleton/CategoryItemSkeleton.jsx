@@ -1,12 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Box, Skeleton } from '@mui/material'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 CategoryItemSkeleton.propTypes = {}
 
 function CategoryItemSkeleton() {
     return (
-        <Box display="flex" height="42px">
+        <Box
+            sx={{
+                display: 'flex',
+                height: '42px',
+                borderRadius: '5px',
+            }}
+        >
             <Skeleton
                 variant="rectangular"
                 width={20}

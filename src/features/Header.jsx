@@ -16,8 +16,8 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material'
-import { orange } from '@mui/material/colors'
-import React from 'react'
+import { blue, grey, orange } from '@mui/material/colors'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getNameUser } from '../utils/common'
@@ -29,19 +29,34 @@ import { resetTrackingOrder, resetTrackingOrderUser } from './TrackingOrder/trac
 Header.propTypes = {}
 
 function Header() {
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const [anchorEl, setAnchorEl] = useState(null)
+    const [active, setActive] = useState(false)
     const totalQuantityCart = useSelector(totalQuantity)
     const isShowCart = useSelector((state) => state.cart.isShowCart)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
     const user = useSelector((state) => state.user2.currentUser)
     const trackingByUserOrderList = useSelector(
         (state) => state.trackingOrder.trackingByUserOrderList
     )
 
-    const location = useLocation()
-    console.log(location)
+    // header active when scroll
+    const handleScroll = () => {
+        if (window.scrollY > 300) {
+            setActive(true)
+        } else {
+            setActive(false)
+        }
+    }
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+    // handle go to cart
     const handleGoToCart = () => {
         dispatch(hideCart())
         navigate('/cart')
@@ -65,6 +80,7 @@ function Header() {
         navigate('/')
     }
 
+    // menu list
     const menuLinkList = [
         {
             link: `${user ? '/products' : '/login'}`,
@@ -79,12 +95,18 @@ function Header() {
     ]
 
     return (
-        <Box>
+        <Box component="header">
             <AppBar
-                position="fixed"
+                className={active ? 'active' : ''}
                 sx={{
-                    boxShadow: '0 0 10px 0px rgba(0, 0, 0, 0.2)',
+                    position: 'fixed',
                     backgroundColor: '#fff',
+                    transition: '.2s ease-in-out',
+                    boxShadow: 'none',
+
+                    '&.active': {
+                        boxShadow: '0px 5px 10px #0000000F',
+                    },
                 }}
             >
                 <Container
@@ -106,9 +128,31 @@ function Header() {
                             <Typography
                                 variant="h6"
                                 component="div"
-                                sx={{ flex: 1, color: orange[600], fontWeight: 600 }}
+                                sx={{
+                                    flex: 1,
+                                    color: grey[800],
+                                    fontWeight: 'bold',
+                                    fontSize: 'x-large',
+                                }}
                             >
-                                Jackie Smith
+                                <Box
+                                    component="span"
+                                    sx={{
+                                        color: orange[700],
+                                    }}
+                                >
+                                    J
+                                </Box>
+                                ackie{' '}
+                                <Box
+                                    component="span"
+                                    sx={{
+                                        color: blue[900],
+                                    }}
+                                >
+                                    S
+                                </Box>
+                                mith
                             </Typography>
                         </Link>
                         <Box
@@ -141,7 +185,7 @@ function Header() {
 
                                         '& > a': {
                                             color: orange[600],
-                                            fontWeight: 500,
+                                            fontWeight: 600,
                                         },
                                     }}
                                 >
@@ -151,6 +195,7 @@ function Header() {
                         </Box>
                         <Box
                             sx={{
+                                position: 'relative',
                                 flex: 1,
                                 display: 'flex',
                                 justifyContent: 'flex-end',
@@ -231,21 +276,23 @@ function Header() {
                                                 'aria-labelledby': 'basic-button',
                                             }}
                                         >
-                                            <MenuItem
-                                                onClick={handleClose}
-                                                sx={{
-                                                    width: '100%',
-                                                    p: '8px 10px 8px 7px',
-                                                }}
-                                            >
-                                                <SettingsIcon
+                                            <Link to="/account">
+                                                <MenuItem
+                                                    onClick={handleClose}
                                                     sx={{
-                                                        mr: '12px',
-                                                        color: orange[500],
+                                                        width: '100%',
+                                                        p: '8px 10px 8px 7px',
                                                     }}
-                                                />
-                                                <Link to="/account">Setting</Link>
-                                            </MenuItem>
+                                                >
+                                                    <SettingsIcon
+                                                        sx={{
+                                                            mr: '12px',
+                                                            color: orange[500],
+                                                        }}
+                                                    />
+                                                    Setting
+                                                </MenuItem>
+                                            </Link>
                                             <MenuItem
                                                 onClick={handleLogout}
                                                 sx={{
@@ -285,41 +332,42 @@ function Header() {
                                     </IconButton>
                                 </>
                             )}
-                        </Box>
-                        <Box
-                            className={isShowCart ? 'active' : ''}
-                            display="flex"
-                            alignItems="center"
-                            color={orange[500]}
-                            position="fixed"
-                            top="64px"
-                            right="10px"
-                            backgroundColor="#fff"
-                            p="8px 16px"
-                            borderRadius="3px"
-                            border={`1px solid ${orange[500]}`}
-                            sx={{
-                                cursor: 'pointer',
-                                transform: 'scale(0)',
-                                transition: '.3s ease-in-out',
-
-                                '&:hover': {
-                                    color: '#fff',
-                                    backgroundColor: orange[500],
-                                },
-
-                                '&.active': {
-                                    transform: 'scale(1)',
-                                },
-                            }}
-                            onClick={handleGoToCart}
-                        >
-                            <CheckCircleIcon
+                            <Box
+                                className={isShowCart ? 'active' : ''}
+                                // className={'active'}
                                 sx={{
-                                    mr: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    color: orange[500],
+                                    position: 'absolute',
+                                    top: '50px',
+                                    right: 0,
+                                    backgroundColor: '#fff',
+                                    p: '8px 16px',
+                                    borderRadius: '3px',
+                                    border: `1px solid ${orange[500]}`,
+                                    cursor: 'pointer',
+                                    transform: 'scale(0)',
+                                    transition: '.3s ease-in-out',
+
+                                    '&:hover': {
+                                        color: '#fff',
+                                        backgroundColor: orange[500],
+                                    },
+
+                                    '&.active': {
+                                        transform: 'scale(1)',
+                                    },
                                 }}
-                            />
-                            <span>Go to cart to see more</span>
+                                onClick={handleGoToCart}
+                            >
+                                <CheckCircleIcon
+                                    sx={{
+                                        mr: '8px',
+                                    }}
+                                />
+                                <span>Go to cart</span>
+                            </Box>
                         </Box>
                     </Toolbar>
                 </Container>

@@ -30,7 +30,14 @@ function AccountInfo() {
                 margin="auto"
                 p="16px 12px 20px"
             >
-                <Box display="flex" justifyContent="center" mb="30px">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        mb: '30px',
+                    }}
+                >
                     <Box mr="12px">
                         <Avatar
                             sx={{
@@ -44,10 +51,24 @@ function AccountInfo() {
                         </Avatar>
                     </Box>
                     <Box>
-                        <Typography variant="h4" component="h3" color={orange[700]}>
+                        <Typography
+                            variant="body1"
+                            component="span"
+                            sx={{
+                                color: orange[700],
+                                fontWeight: 'bold',
+                                fontSize: '1.4rem',
+                            }}
+                        >
                             Hi {getNameUser(user?.fullname)}
                         </Typography>
-                        <Typography variant="body1" color={grey[500]}>
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                color: grey[500],
+                                fontSize: '.9rem',
+                            }}
+                        >
                             Welcome to your account
                         </Typography>
                     </Box>
@@ -74,7 +95,12 @@ function AccountInfo() {
                         })}
                     </Box>
                 </Box>
-                <Box display="flex">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
                     <Box mr="8px">
                         <Link to="/change-password">
                             <ButtonOrange icon={KeyIcon} text="Change password" />

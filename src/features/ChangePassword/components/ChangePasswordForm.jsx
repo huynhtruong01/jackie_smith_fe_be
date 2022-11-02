@@ -61,7 +61,12 @@ function ChangePasswordForm({ onSubmit = null }) {
                 <PasswordField name="newPassword" label="New password" form={form} />
                 <PasswordField name="confirmPassword" label="Confirm password" form={form} />
             </Box>
-            <ButtonOrange fullWidth text="Change password" type="submit" />
+            <ButtonOrange
+                fullWidth
+                text="Change password"
+                type="submit"
+                disabled={form.formState.isSubmitting}
+            />
             <Box
                 textAlign="center"
                 mt="20px"

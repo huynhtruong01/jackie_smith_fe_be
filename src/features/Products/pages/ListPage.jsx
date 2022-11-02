@@ -132,6 +132,12 @@ function ListPage() {
             // fetch styleList by stylesApi
             const { styles } = await stylesApi.getByCategory(value)
             // console.log(styles)
+            if (styles.length === 0) {
+                setStyleList([])
+                setFilters((prev) => ({ ...prev, category: value, page: 1 }))
+                return
+            }
+
             const newStyleList = styles.map((x) => ({ _id: x._id, name: x.name }))
             setStyleList(newStyleList)
 
@@ -252,6 +258,7 @@ function ListPage() {
                                     data={colorList}
                                     onChange={handleColorFilter}
                                     isColor={true}
+                                    loading={loading}
                                 />
                             </Box>
                             <Box borderTop={`1px solid ${grey[300]}`} p="16px 0">

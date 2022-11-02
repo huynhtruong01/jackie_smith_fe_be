@@ -46,7 +46,12 @@ function ForgotPasswordForm({ onSubmit = null }) {
                 Confirm your email
             </Typography>
             <InputField name="email" form={form} label="Email" placeholder="abc@gmail.com" />
-            <ButtonOrange type="submit" text="Check email" fullWidth />
+            <ButtonOrange
+                disabled={form.formState.isSubmitting}
+                type="submit"
+                text="Check email"
+                fullWidth
+            />
         </Box>
     )
 }

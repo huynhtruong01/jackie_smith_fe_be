@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import InputField from '../../../components/formControls/InputField'
-import ButtonOrange from '../../../components/ButtonOrange'
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import * as yup from 'yup'
+import ButtonOrange from '../../../components/ButtonOrange'
+import InputField from '../../../components/formControls/InputField'
 
 ChangeInfoForm.propTypes = {}
 
@@ -64,15 +64,22 @@ function ChangeInfoForm({ values, onSubmit = null }) {
                     label="Full Name"
                     placeholder="Nguyen Van A"
                     form={form}
+                    disabled={form.formState.isSubmitting}
                 />
                 <InputField
                     name="email"
                     label="Email"
                     placeholder="anguyen@gmail.com"
                     form={form}
+                    disabled={form.formState.isSubmitting}
                 />
             </Box>
-            <ButtonOrange fullWidth type="submit" text="Change" />
+            <ButtonOrange
+                disabled={form.formState.isSubmitting}
+                fullWidth
+                type="submit"
+                text="Change"
+            />
         </Box>
     )
 }

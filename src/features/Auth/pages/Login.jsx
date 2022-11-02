@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import authApi from '../../../api/authApi'
 import cartsApi from '../../../api/cartsApi'
 import ordersApi from '../../../api/ordersApi'
+import LinearLoading from '../../../components/Loading/LinearLoading'
 import { getCartFromDB, getIdCartFromDB } from '../../Cart/cartSlice'
 import { addTrackingOrderUser } from '../../TrackingOrder/trackingOrderSlice'
 import LoginForm from '../components/LoginForm'
@@ -20,6 +21,7 @@ const roleList = ['employee']
 function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -27,6 +29,8 @@ function Login() {
 
     const handleSubmit = async (value) => {
         try {
+            setLoading(true)
+
             const user = await authApi.login(value)
             const cart = await cartsApi.getByUserId(user.user._id)
             // console.log(user.user.role)
@@ -69,10 +73,18 @@ function Login() {
             })
             throw new Error(error?.response?.data?.message || error.message)
         }
+
+        setLoading(false)
     }
 
     return (
-        <Box p="24px 0 50px">
+        <Box
+            sx={{
+                position: 'relative',
+                p: '24px 0 50px',
+            }}
+        >
+            {loading && <LinearLoading />}
             <Box
                 width="400px"
                 margin="auto"

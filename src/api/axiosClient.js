@@ -4,6 +4,7 @@ const axiosClient = axios.create({
     baseURL: 'https://backend-jackie-smith.onrender.com/api',
     headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
     },
 })
 

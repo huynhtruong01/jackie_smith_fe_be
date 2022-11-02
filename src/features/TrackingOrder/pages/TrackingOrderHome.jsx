@@ -1,8 +1,9 @@
 import CachedIcon from '@mui/icons-material/Cached'
 import { Box, Button, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { grey, orange } from '@mui/material/colors'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import ordersApi from '../../../api/ordersApi'
 import ButtonOrange from '../../../components/ButtonOrange'
 import LoadingCircle from '../../../components/Loading/LoadingCircle'
@@ -20,6 +21,10 @@ function TrackingOrderHome() {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
         const getOrders = async () => {
             try {
                 setLoading(true)
@@ -27,7 +32,6 @@ function TrackingOrderHome() {
                 const ordersByUserIdList = await ordersApi.getAllByUserId({ userId: user._id })
                 setTrackingOrderList(orders)
                 dispatch(addTrackingOrderUser(ordersByUserIdList.orders))
-                // console.log(orders)
             } catch (error) {
                 console.log(error)
             }
@@ -45,7 +49,7 @@ function TrackingOrderHome() {
     return (
         <Box p="16px 0">
             {loading && <LoadingCircle />}
-            {!loading && (
+            {!loading && trackingOrderList?.length > 0 && (
                 <>
                     <Box mb="16px" display="flex" justifyContent="space-between">
                         <Typography variant="h6" component="h2" color={`${grey[900]}`}>
@@ -59,6 +63,26 @@ function TrackingOrderHome() {
                         <TrackingOrderData trackingOrderList={trackingOrderList} />
                     </Box>
                 </>
+            )}
+            {!loading && trackingOrderList.length === 0 && (
+                <Box
+                    component="p"
+                    sx={{
+                        textAlign: 'center',
+                        color: grey[800],
+                        '& > a': {
+                            display: 'inline-block',
+                            color: orange[500],
+
+                            '&:hover': {
+                                color: orange[700],
+                                textDecoration: 'underline',
+                            },
+                        },
+                    }}
+                >
+                    You don't have any order here. <Link to="/products">Go to shop to buy.</Link>
+                </Box>
             )}
         </Box>
     )

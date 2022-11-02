@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -25,6 +26,10 @@ function PaymentDirectly() {
     //     if (!idCart && carts.length === 0 && Object.keys(checkoutValues).length === 0) return
     //     handleOrder()
     // }, [])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleOrder = async () => {
         try {

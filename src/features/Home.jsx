@@ -2,23 +2,26 @@ import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import CardDetail from '../components/CardDetail'
 import CategoryList from '../components/CategoryList'
-import SwiperSlider from '../components/SwiperSlider'
-import { categoryList, sliders } from '../utils/common'
+import { categoryList } from '../utils/common'
 import SliderProducts from './SliderProducts'
 
 Home.propTypes = {}
 
 function Home() {
     const [categories, setCategories] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const getCategories = async () => {
             try {
+                setLoading(true)
                 const categories = await categoryList()
                 setCategories(categories)
             } catch (error) {
                 console.log('Error: ', error)
             }
+
+            setLoading(false)
         }
 
         getCategories()
@@ -26,8 +29,7 @@ function Home() {
 
     return (
         <Box>
-            <SwiperSlider data={sliders} />
-            <CategoryList categoryList={categories} />
+            <CategoryList categoryList={categories} loading={loading} />
             <CardDetail
                 item={{
                     title: 'Dear flat backpack',

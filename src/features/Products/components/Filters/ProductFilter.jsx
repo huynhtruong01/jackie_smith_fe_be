@@ -35,6 +35,8 @@ function ProductFilter({ filters, title = '', api, onChange = null, loading = 'f
                 return
             }
 
+            console.log(e.target)
+
             await onChange(e.target.name)
         } catch (error) {
             console.log(error)

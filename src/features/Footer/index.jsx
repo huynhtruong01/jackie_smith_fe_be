@@ -2,7 +2,7 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import PinterestIcon from '@mui/icons-material/Pinterest'
 import { Box, Container, IconButton, Typography } from '@mui/material'
-import { grey, orange } from '@mui/material/colors'
+import { blue, grey, orange } from '@mui/material/colors'
 import PropTypes from 'prop-types'
 import React from 'react'
 import LinkList from './components/LinkList'
@@ -55,22 +55,43 @@ const ulList = [
 
 function Footer() {
     return (
-        <Box p="30px 20px 70px" backgroundColor={orange[50]}>
+        <Box component="footer" p="40px 20px" backgroundColor={orange[50]}>
             <Container maxWidth="lg">
                 <Box display="flex" columnGap="100px">
                     <Box flex={1}>
-                        <Typography
-                            variant="h5"
-                            component="h2"
-                            color={orange[700]}
-                            fontWeight={600}
-                            mb="8px"
-                        >
-                            Jackie Smith
-                        </Typography>
+                        <Box>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                sx={{
+                                    flex: 1,
+                                    color: grey[800],
+                                    fontWeight: 'bold',
+                                    fontSize: 'x-large',
+                                }}
+                            >
+                                <Box
+                                    component="span"
+                                    sx={{
+                                        color: orange[700],
+                                    }}
+                                >
+                                    J
+                                </Box>
+                                ackie{' '}
+                                <Box
+                                    component="span"
+                                    sx={{
+                                        color: blue[900],
+                                    }}
+                                >
+                                    S
+                                </Box>
+                                mith
+                            </Typography>
+                        </Box>
                         <Typography color={grey[500]} mb="16px" fontSize="13px">
-                            Jackie Smith is one of the big stores in Spain and is the world's
-                            leading fashion store with a wide range of products
+                            Jackie Smith is one of the big stores in Spain.
                         </Typography>
                         <Box>
                             {socialList?.map((social) => {
