@@ -1,15 +1,15 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import { grey, orange, red } from '@mui/material/colors'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import cartsApi from '../../api/cartsApi'
+import CartEmpty from '../../assets/images/cart-empty.gif'
+import ButtonOrange from '../../components/ButtonOrange'
 import { getIdCartFromDB, removeAllCart, removeCart } from './cartSlice'
 import CartList from './components/CartList'
 import CartTotal from './components/CartTotal'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import cartsApi from '../../api/cartsApi'
-import ButtonOrange from '../../components/ButtonOrange'
-import CartEmpty from '../../assets/images/cart-empty.gif'
 
 Cart.propTypes = {}
 
@@ -132,8 +132,16 @@ function Cart() {
                                     <Box width="400px" mb="16px">
                                         <img src={CartEmpty} alt="" />
                                     </Box>
-                                    <Typography>
-                                        Your cart is empty{' '}
+                                    <Typography
+                                        sx={{
+                                            p: '12px 18px',
+                                            borderRadius: '3px',
+                                            backgroundColor: '#fff',
+                                            fontWeight: 600,
+                                            color: grey[800],
+                                        }}
+                                    >
+                                        Your cart is empty.{' '}
                                         <Typography
                                             component="span"
                                             color={orange[600]}

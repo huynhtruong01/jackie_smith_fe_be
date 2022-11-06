@@ -8,10 +8,12 @@ import {
     TableCell,
     TableContainer,
     TableRow,
+    Typography,
 } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
 import categoriesApi from '../../../api/categoriesApi'
 import colorsApi from '../../../api/colorsApi'
 import ordersApi from '../../../api/ordersApi'
@@ -22,6 +24,8 @@ import TableDataBody from '../../../components/TableData/TableDataBody'
 import TableHeader from '../../../components/TableData/TableHeader'
 import { formatColor } from '../../../utils/color'
 import { formatCapitalize, formatPrice } from '../../../utils/common'
+import TrackingOrderTableApproves from '../components/TrackingOrderTableApproves'
+import TrackingOrderTableData from '../components/TrackingOrderTableData'
 
 TrackingOrderDetail.propTypes = {}
 
@@ -31,6 +35,7 @@ function TrackingOrderDetail() {
     const [loading, setLoading] = useState(true)
     const [selected, setSelected] = useState([])
     const [modeOrder, setModeOrder] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -77,23 +82,19 @@ function TrackingOrderDetail() {
 
     const dataHeader = ['Id', 'Image', 'Name', 'Category', 'Price', 'Quantity', 'Color', 'Style']
 
-    // check selected items
-    const isSelected = (id) => selected.indexOf(id) !== -1
+    // handle delete tracking order
+    const handleDeleteTrackingOrder = async () => {
+        try {
+            await ordersApi.updateProductTrackingOrder(id, { productIdList: selected })
+            toast.success('Delete product success.', {
+                autoClose: 2000,
+                theme: 'colored',
+            })
 
-    // handle checked item
-    const handleItemChecked = (e, id) => {
-        const isChecked = selected.indexOf(id) !== -1
-        const newSelected = [...selected]
-        if (!isChecked) {
-            newSelected.push(id)
-            setSelected(newSelected)
-            return
+            setTimeout(() => navigate('/tracking-order'), 3000)
+        } catch (error) {
+            console.log('Error: ', error)
         }
-
-        const index = selected.indexOf(id)
-        newSelected.splice(index, 1)
-
-        setSelected(newSelected)
     }
 
     return (
@@ -101,80 +102,79 @@ function TrackingOrderDetail() {
             {loading && <LoadingCircle />}
             {!loading && (
                 <>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-end',
-                            mb: '16px',
-                            p: '0 16px',
-                        }}
-                    >
-                        <Box
-                            component="h3"
-                            sx={{
-                                color: orange[700],
-                            }}
-                        >
-                            {selected.length === 0 && 'Products'}
-                            {selected.length > 0 && (
-                                <>
-                                    {`${selected.length}`}
-                                    <Box
-                                        component="span"
-                                        sx={{
-                                            color: grey[800],
-                                        }}
-                                    >
-                                        {' '}
-                                        products
-                                    </Box>
-                                </>
-                            )}
-                        </Box>
-                        <Box>
-                            <ButtonOrange
-                                icon={DeleteIcon}
-                                disabled={selected.length === 0 && modeOrder === 'approves'}
-                                text={
-                                    selected.length < productList.length ? 'Delete' : 'Delete all'
-                                }
-                            />
-                        </Box>
+                    <Box>
+                        {modeOrder === 'approves' && (
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'flex-end',
+                                    mb: '16px',
+                                    p: '0 16px',
+                                }}
+                            >
+                                <Box
+                                    component="h3"
+                                    sx={{
+                                        color: orange[700],
+                                    }}
+                                >
+                                    {selected.length === 0 && 'Products'}
+                                    {selected.length > 0 && (
+                                        <>
+                                            {`${selected.length}`}
+                                            <Box
+                                                component="span"
+                                                sx={{
+                                                    color: grey[800],
+                                                }}
+                                            >
+                                                {' '}
+                                                products
+                                            </Box>
+                                        </>
+                                    )}
+                                </Box>
+                                <Box>
+                                    <ButtonOrange
+                                        icon={DeleteIcon}
+                                        disabled={selected.length === 0 && modeOrder === 'approves'}
+                                        text={
+                                            selected.length < productList.length
+                                                ? 'Delete'
+                                                : 'Delete all'
+                                        }
+                                        onClick={handleDeleteTrackingOrder}
+                                    />
+                                </Box>
+                            </Box>
+                        )}
+                        {modeOrder !== 'approves' && (
+                            <Typography component="h3" variant="h5">
+                                List product
+                            </Typography>
+                        )}
                     </Box>
+
                     <TableContainer component={Paper}>
-                        <Table sx={{ width: '100%' }}>
-                            <TableHeader
-                                data={dataHeader}
+                        {modeOrder === 'approves' && (
+                            <TrackingOrderTableApproves
                                 productList={productList}
-                                isCheckBox={true}
-                                setSelected={setSelected}
+                                dataHeader={dataHeader}
                                 selected={selected}
+                                setSelected={setSelected}
                             />
-                            <TableBody>
-                                {productList.length !== 0 &&
-                                    productList?.map((x, index) => (
-                                        <TableRow key={`${x.id}${index}`}>
-                                            <TableCell>
-                                                <Checkbox
-                                                    checked={isSelected(x.id)}
-                                                    onChange={(e) => handleItemChecked(e, x.id)}
-                                                    sx={{
-                                                        color: orange[500],
-                                                        '&.Mui-checked': {
-                                                            color: orange[500],
-                                                        },
-                                                    }}
-                                                />
-                                            </TableCell>
-                                            <TableDataBody data={x} />
-                                        </TableRow>
-                                    ))}
-                            </TableBody>
-                        </Table>
+                        )}
+                        {modeOrder !== 'approves' && (
+                            <TrackingOrderTableData
+                                dataHeader={dataHeader}
+                                productList={productList}
+                            />
+                        )}
                     </TableContainer>
                 </>
             )}
+            <ToastContainer />
         </Box>
     )
 }

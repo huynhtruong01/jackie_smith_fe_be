@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import * as yup from 'yup'
 import ButtonOrange from '../../../components/ButtonOrange'
 import InputField from '../../../components/formControls/InputField'
@@ -27,7 +27,7 @@ function ForgotPasswordForm({ onSubmit = null }) {
         try {
             await onSubmit(values)
         } catch (error) {
-            toast.error(error, {
+            toast.error(error.message, {
                 autoClose: 2000,
                 theme: 'colored',
             })
@@ -37,21 +37,33 @@ function ForgotPasswordForm({ onSubmit = null }) {
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
             <Typography
-                component="h2"
+                component="h3"
                 variant="h5"
-                textAlign="center"
-                fontWeight="500"
-                color={orange[500]}
+                sx={{
+                    textTransform: 'uppercase',
+                    fontSize: '1.2rem',
+                    color: orange[600],
+                    fontWeight: 600,
+                    mb: '24px',
+                    textAlign: 'center',
+                }}
             >
                 Confirm your email
             </Typography>
-            <InputField name="email" form={form} label="Email" placeholder="abc@gmail.com" />
+            <InputField
+                name="email"
+                form={form}
+                label="Email"
+                placeholder="abc@gmail.com"
+                disabled={form.formState.isSubmitting}
+            />
             <ButtonOrange
                 disabled={form.formState.isSubmitting}
                 type="submit"
                 text="Check email"
                 fullWidth
             />
+            <ToastContainer />
         </Box>
     )
 }

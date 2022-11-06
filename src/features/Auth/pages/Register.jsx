@@ -1,15 +1,17 @@
 import { Box } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import authApi from '../../../api/authApi'
+import LinearLoading from '../../../components/Loading/LinearLoading'
 import RegisterForm from '../components/RegisterForm'
 
 Register.propTypes = {}
 
 function Register() {
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -35,14 +37,22 @@ function Register() {
     }
 
     return (
-        <Box p="24px 0 50px">
+        <Box
+            sx={{
+                position: 'relative',
+                p: '24px 0 50px',
+            }}
+        >
+            {loading && <LinearLoading />}
             <Box
-                width="400px"
-                margin="auto"
-                p="16px"
-                backgroundColor="#fff"
-                boxShadow={`0 0 3px 3px ${grey[100]}`}
-                borderRadius="5px"
+                sx={{
+                    width: '400px',
+                    margin: 'auto',
+                    p: '24px',
+                    backgroundColor: '#fff',
+                    boxShadow: `0 0 3px 3px ${grey[100]}`,
+                    borderRadius: '5px',
+                }}
             >
                 <RegisterForm onSubmit={handleSubmit} />
             </Box>

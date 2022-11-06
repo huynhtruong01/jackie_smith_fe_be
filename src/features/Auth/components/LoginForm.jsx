@@ -44,17 +44,50 @@ function LoginForm({ onSubmit = null }) {
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
             <Typography
-                component="h2"
+                component="h3"
                 variant="h5"
-                textAlign="center"
-                fontWeight="500"
-                color={orange[500]}
+                sx={{
+                    textTransform: 'uppercase',
+                    fontSize: '1.2rem',
+                    color: orange[600],
+                    fontWeight: 600,
+                    mb: '24px',
+                    textAlign: 'center',
+                }}
             >
-                Login
+                SIGN IN
             </Typography>
             <Box>
-                <InputField name="email" label="Email" form={form} placeholder="abc@gmail.com" />
-                <PasswordField name="password" label="Password" form={form} />
+                <InputField
+                    name="email"
+                    label="Email"
+                    form={form}
+                    placeholder="abc@gmail.com"
+                    disabled={form.formState.isSubmitting}
+                />
+                <PasswordField
+                    name="password"
+                    label="Password"
+                    form={form}
+                    disabled={form.formState.isSubmitting}
+                />
+            </Box>
+            <Box
+                sx={{
+                    mb: '16px',
+                    textAlign: 'right',
+                    a: {
+                        color: orange[600],
+
+                        '&:hover': {
+                            textDecoration: 'underline',
+                        },
+                    },
+                }}
+            >
+                <Link to="/forgot-password">
+                    <Typography fontSize="0.9rem">Forgot password?</Typography>
+                </Link>
             </Box>
             <ButtonOrange
                 text="Login"
@@ -76,11 +109,7 @@ function LoginForm({ onSubmit = null }) {
                         },
                     },
                 }}
-            >
-                <Link to="/forgot-password">
-                    <Typography fontSize="0.9rem">Forgot password?</Typography>
-                </Link>
-            </Box>
+            ></Box>
             <Box width="100%">
                 <LoginGoogle />
                 {/* <LoginFacebook /> */}
@@ -89,6 +118,7 @@ function LoginForm({ onSubmit = null }) {
                 <Typography
                     sx={{
                         color: grey[700],
+                        fontSize: '14px',
                         a: {
                             display: 'inline',
                             color: orange[400],
@@ -101,10 +131,7 @@ function LoginForm({ onSubmit = null }) {
                         },
                     }}
                 >
-                    Dont't have an account?{' '}
-                    <Link to="/register">
-                        <Typography component="span">Register</Typography>
-                    </Link>
+                    Dont't have an account? <Link to="/register">Register</Link>
                 </Typography>
             </Box>
         </Box>

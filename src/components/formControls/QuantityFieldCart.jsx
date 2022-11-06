@@ -1,13 +1,9 @@
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
+import { Box, FormHelperText, IconButton, TextField } from '@mui/material'
+import { grey, orange } from '@mui/material/colors'
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Box, TextField, IconButton, FormHelperText } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
-import { orange } from '@mui/material/colors'
-import { useDispatch } from 'react-redux'
-import { updateQuantity } from '../../features/Cart/cartSlice'
-import { CleaningServices } from '@mui/icons-material'
 
 QuantityCartField.propTypes = {}
 
@@ -22,14 +18,30 @@ function QuantityCartField({ name, form }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <Box>
-                        <Box display="flex" alignItems="center">
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                border: `1px solid ${grey[300]}`,
+                                overflow: 'hidden',
+                                borderRadius: '3px',
+                                height: '30px',
+                            }}
+                        >
                             <IconButton
                                 type="submit"
-                                onClick={() => {
-                                    setValue(name, value <= 1 ? 1 : Number(value) - 1)
+                                onClick={() => setValue(name, value <= 1 ? 1 : Number(value) - 1)}
+                                sx={{
+                                    display: 'inline-flex',
+                                    borderRadius: 0,
+                                    borderRight: `1px solid ${grey[300]}`,
+                                    width: '30px',
+                                    svg: {
+                                        fontSize: '18px',
+                                    },
                                 }}
                             >
-                                <RemoveCircleOutlineIcon />
+                                <RemoveIcon />
                             </IconButton>
                             <TextField
                                 value={value}
@@ -38,10 +50,14 @@ function QuantityCartField({ name, form }) {
                                 error={!!error}
                                 variant="outlined"
                                 sx={{
-                                    width: '50px',
+                                    width: '30px',
                                     input: {
-                                        p: '12px',
+                                        p: '4px',
                                         textAlign: 'center',
+                                        fontSize: '14px',
+                                    },
+                                    fieldset: {
+                                        border: 'none',
                                     },
                                     '.MuiOutlinedInput-root.Mui-focused fieldset': {
                                         borderColor: orange[600],
@@ -50,11 +66,18 @@ function QuantityCartField({ name, form }) {
                             />
                             <IconButton
                                 type="submit"
-                                onClick={() => {
-                                    setValue(name, value >= 10 ? 10 : Number(value) + 1)
+                                onClick={() => setValue(name, value >= 10 ? 10 : Number(value) + 1)}
+                                sx={{
+                                    display: 'inline-flex',
+                                    borderRadius: 0,
+                                    borderLeft: `1px solid ${grey[300]}`,
+                                    width: '30px',
+                                    svg: {
+                                        fontSize: '18px',
+                                    },
                                 }}
                             >
-                                <AddCircleOutlineIcon />
+                                <AddIcon />
                             </IconButton>
                         </Box>
                         <FormHelperText error={!!error}>{error?.message}</FormHelperText>

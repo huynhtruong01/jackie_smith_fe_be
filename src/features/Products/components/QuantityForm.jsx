@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Box } from '@mui/material'
-import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
-import ButtonOrange from '../../../components/ButtonOrange'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { yupResolver } from '@hookform/resolvers/yup'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { Box } from '@mui/material'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import ButtonOrange from '../../../components/ButtonOrange'
 import QuantityField from '../../../components/formControls/QuantityField'
 import SelectSizeField from '../../../components/formControls/SelectSizeField'
 import { sneakerSizeList } from '../../../utils/size'
@@ -40,7 +40,7 @@ function QuantityForm({ quantity = 1, onSubmit = null, menuList = [] }) {
 
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)} width="100%">
-            <Box display="flex" mb="20px">
+            <Box display="flex" mb="8px">
                 <Box mr="20px">
                     <QuantityField name="quantity" form={form} />
                 </Box>

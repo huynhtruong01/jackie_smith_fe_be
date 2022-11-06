@@ -68,9 +68,12 @@ function TrackingOrderHome() {
                 <Box
                     component="p"
                     sx={{
-                        textAlign: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                         color: grey[800],
-                        '& > a': {
+
+                        '& a': {
                             display: 'inline-block',
                             color: orange[500],
 
@@ -81,7 +84,17 @@ function TrackingOrderHome() {
                         },
                     }}
                 >
-                    You don't have any order here. <Link to="/products">Go to shop to buy.</Link>
+                    <Typography
+                        sx={{
+                            p: '12px 18px',
+                            borderRadius: '3px',
+                            backgroundColor: '#fff',
+                            fontWeight: 600,
+                        }}
+                    >
+                        You don't have any order here.{' '}
+                        <Link to="/products">Go to shop to buy.</Link>
+                    </Typography>
                 </Box>
             )}
         </Box>

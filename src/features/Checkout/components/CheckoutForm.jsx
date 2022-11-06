@@ -1,14 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Box, TextField, Typography } from '@mui/material'
-import * as yup from 'yup'
-import { Controller, useForm } from 'react-hook-form'
-import TextAreaField from '../../../components/formControls/TextAreaField'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonOrange from '../../../components/ButtonOrange'
+import { Box, TextField, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
-import RadioField from '../../../components/formControls/RadioField'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import ButtonOrange from '../../../components/ButtonOrange'
+import InputField from '../../../components/formControls/InputField'
 import NumberField from '../../../components/formControls/NumberField'
+import RadioField from '../../../components/formControls/RadioField'
+import TextAreaField from '../../../components/formControls/TextAreaField'
 
 CheckoutForm.propTypes = {}
 
@@ -25,20 +26,29 @@ const data = [
 
 function CheckoutForm({ values, onSubmit = null }) {
     const schema = yup.object().shape({
-        address: yup.string().required('Please enter your address'),
+        fullName: yup
+            .string()
+            .required('Please enter full name.')
+            .test(
+                'full-name-at-least-two-words',
+                'Please enter full name at least two words.',
+                (value) => value.split(' ').filter((x) => !!x && x.length >= 2).length >= 2
+            ),
+        address: yup.string().required('Please enter your address.'),
         phoneNumber: yup
             .string()
-            .required('Please enter your phone number')
+            .required('Please enter your phone number.')
             .test(
                 'check-length',
-                'Please enter your phone number least nine number or maximum eleven number',
+                'Please enter your phone number least nine number or maximum eleven number.',
                 (value) => value.toString().length >= 9 && value.toString().length <= 11
             ),
-        typeCheckout: yup.string().required('Please choose type checkout'),
+        typeCheckout: yup.string().required('Please choose type checkout.'),
     })
 
     const form = useForm({
         defaultValues: {
+            fullName: values?.fullname || '',
             address: '',
             phoneNumber: '',
             typeCheckout: data[0].value,
@@ -73,7 +83,13 @@ function CheckoutForm({ values, onSubmit = null }) {
                         m: '16px 0',
                     }}
                 >
-                    <TextField label="Full Name" value={values.fullname} fullWidth />
+                    <InputField
+                        name="fullName"
+                        form={form}
+                        label="Full Name"
+                        disabled={form.formState.isSubmitting}
+                        placeholder="Nguyen Van A"
+                    />
                 </Box>
                 <Box
                     sx={{

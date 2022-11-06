@@ -196,13 +196,13 @@ function Header() {
                         <Box
                             sx={{
                                 position: 'relative',
-                                flex: 1,
+                                flex: '1 1 0',
                                 display: 'flex',
                                 justifyContent: 'flex-end',
                                 alignItems: 'center',
 
-                                '& > a': {
-                                    display: 'inline',
+                                '& a': {
+                                    display: 'inline-block',
                                     color: '#fff',
                                 },
                             }}
@@ -226,7 +226,13 @@ function Header() {
                             )}
                             {user && (
                                 <>
-                                    <Box mr="8px">
+                                    <Box
+                                        sx={{
+                                            mr: '8px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
                                         <Button
                                             id="basic-button"
                                             aria-controls={open ? 'basic-menu' : undefined}
@@ -236,6 +242,7 @@ function Header() {
                                             endIcon={<ArrowDropDownIcon />}
                                             sx={{
                                                 color: orange[600],
+                                                fontSize: '13px',
                                                 backgroundColor: orange[50],
                                                 '&:hover': {
                                                     backgroundColor: orange[600],
@@ -245,28 +252,30 @@ function Header() {
                                         >
                                             Hi, {getNameUser(user.user.fullname)}
                                         </Button>
-                                        <IconButton
-                                            sx={{
-                                                ml: '8px',
-                                                '&:hover': {
-                                                    backgroundColor: orange[50],
-                                                },
-                                                '& svg': {
-                                                    color: orange[500],
-                                                    width: '1.7rem',
-                                                    height: '1.7rem',
-                                                },
-                                            }}
-                                        >
-                                            <Link to="/tracking-order">
+                                        <Link to="/tracking-order">
+                                            <IconButton
+                                                sx={{
+                                                    ml: '8px',
+                                                    '&:hover': {
+                                                        backgroundColor: orange[50],
+                                                    },
+                                                    '& svg': {
+                                                        color: orange[500],
+                                                        width: '1.7rem',
+                                                        height: '1.7rem',
+                                                    },
+                                                }}
+                                            >
                                                 <Badge
-                                                    badgeContent={trackingByUserOrderList.length}
+                                                    badgeContent={
+                                                        trackingByUserOrderList.length || '0'
+                                                    }
                                                     color="error"
                                                 >
                                                     <NotificationsIcon />
                                                 </Badge>
-                                            </Link>
-                                        </IconButton>
+                                            </IconButton>
+                                        </Link>
                                         <Menu
                                             id="basic-menu"
                                             anchorEl={anchorEl}
@@ -309,27 +318,27 @@ function Header() {
                                             </MenuItem>
                                         </Menu>
                                     </Box>
-                                    <IconButton
-                                        sx={{
-                                            '&:hover': {
-                                                backgroundColor: orange[50],
-                                            },
-                                            '& svg': {
-                                                color: orange[500],
-                                                width: '1.7rem',
-                                                height: '1.7rem',
-                                            },
-                                        }}
-                                    >
-                                        <Link to="/cart">
+                                    <Link to="/cart">
+                                        <IconButton
+                                            sx={{
+                                                '&:hover': {
+                                                    backgroundColor: orange[50],
+                                                },
+                                                '& svg': {
+                                                    color: orange[500],
+                                                    width: '1.7rem',
+                                                    height: '1.7rem',
+                                                },
+                                            }}
+                                        >
                                             <Badge
                                                 badgeContent={totalQuantityCart || '0'}
                                                 color="error"
                                             >
                                                 <ShoppingCartIcon />
                                             </Badge>
-                                        </Link>
-                                    </IconButton>
+                                        </IconButton>
+                                    </Link>
                                 </>
                             )}
                             <Box

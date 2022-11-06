@@ -1,17 +1,19 @@
 import { Box } from '@mui/material'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import usersApi from '../../api/usersApi'
+import LinearLoading from '../../components/Loading/LinearLoading'
 import { loginAndSaveUser } from '../Auth/userSlice'
 import ChangeInfoForm from './components/ChangeInfoForm'
 
 ChangeInfo.propTypes = {}
 
 function ChangeInfo() {
+    const [loading, setLoading] = useState(false)
     const user = useSelector((state) => state.user2?.currentUser.user)
     const currentUser = useSelector((state) => state.user2?.currentUser)
     const dispatch = useDispatch()
@@ -27,6 +29,7 @@ function ChangeInfo() {
 
     const handleSubmit = async (values) => {
         try {
+            setLoading(true)
             // update user
             const userUpdate = await usersApi.update({ ...user, ...values })
             console.log(userUpdate)
@@ -48,17 +51,19 @@ function ChangeInfo() {
         } catch (error) {
             throw new Error(error)
         }
+
+        setLoading(false)
     }
 
     return (
-        <Box pt="50px">
-            <Box
-                backgroundColor="#fff"
-                width="400px"
-                margin="auto"
-                p="16px 16px 20px"
-                borderRadius="5px"
-            >
+        <Box
+            sx={{
+                position: 'relative',
+                pt: '50px',
+            }}
+        >
+            {loading && <LinearLoading />}
+            <Box backgroundColor="#fff" width="400px" margin="auto" p="24px" borderRadius="5px">
                 <ChangeInfoForm values={values} onSubmit={handleSubmit} />
             </Box>
             <ToastContainer />

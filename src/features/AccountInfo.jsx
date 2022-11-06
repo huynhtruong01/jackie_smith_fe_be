@@ -19,7 +19,7 @@ const userObj = {
 
 function AccountInfo() {
     const user = useSelector((state) => state.user2.currentUser.user)
-    const { _id, createdAt, updatedAt, role, __v, ...newUser } = user
+    const { _id, createdAt, updatedAt, role, __v, password, id, ...newUser } = user
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -32,7 +32,7 @@ function AccountInfo() {
                 borderRadius="5px"
                 width="700px"
                 margin="auto"
-                p="16px 12px 20px"
+                p="24px 16px"
             >
                 <Box
                     sx={{
@@ -112,7 +112,7 @@ function AccountInfo() {
                     </Box>
                     <Box>
                         <Link to="/setting-account">
-                            <ButtonOrange icon={SettingsIcon} text="Setting account" />
+                            <ButtonOrange icon={SettingsIcon} text="Edit account" />
                         </Link>
                     </Box>
                 </Box>

@@ -49,12 +49,16 @@ function ChangeInfoForm({ values, onSubmit = null }) {
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
             <Typography
-                component="h2"
+                component="h3"
                 variant="h5"
-                textAlign="center"
-                fontWeight="500"
-                color={orange[500]}
-                mb="32px"
+                sx={{
+                    textTransform: 'uppercase',
+                    fontSize: '1.2rem',
+                    color: orange[600],
+                    fontWeight: 600,
+                    mb: '24px',
+                    textAlign: 'center',
+                }}
             >
                 Change information
             </Typography>

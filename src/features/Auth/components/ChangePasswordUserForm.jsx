@@ -52,17 +52,32 @@ function ChangePasswordUserForm({ onSubmit = null }) {
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
             <Typography
-                component="h2"
+                component="h3"
                 variant="h5"
-                textAlign="center"
-                fontWeight="500"
-                color={orange[500]}
+                sx={{
+                    textTransform: 'uppercase',
+                    fontSize: '1.2rem',
+                    color: orange[600],
+                    fontWeight: 600,
+                    mb: '24px',
+                    textAlign: 'center',
+                }}
             >
                 Change password
             </Typography>
             <Box>
-                <PasswordField name="newPassword" form={form} label="New Password" />
-                <PasswordField name="confirmPassword" form={form} label="Confirm Password" />
+                <PasswordField
+                    name="newPassword"
+                    form={form}
+                    label="New Password"
+                    disabled={form.formState.isSubmitting}
+                />
+                <PasswordField
+                    name="confirmPassword"
+                    form={form}
+                    label="Confirm Password"
+                    disabled={form.formState.isSubmitting}
+                />
             </Box>
             <ButtonOrange
                 disabled={form.formState.isSubmitting}

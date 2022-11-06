@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
-import PropTypes from 'prop-types'
 import React from 'react'
 
 ProductClearAll.propTypes = {}

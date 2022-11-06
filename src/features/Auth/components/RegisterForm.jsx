@@ -58,13 +58,18 @@ function RegisterForm({ onSubmit = null }) {
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
             <Typography
-                component="h2"
+                component="h3"
                 variant="h5"
-                textAlign="center"
-                fontWeight="500"
-                color={orange[500]}
+                sx={{
+                    textTransform: 'uppercase',
+                    fontSize: '1.2rem',
+                    color: orange[600],
+                    fontWeight: 600,
+                    mb: '24px',
+                    textAlign: 'center',
+                }}
             >
-                Register
+                SIGN UP
             </Typography>
             <Box>
                 <InputField
@@ -72,10 +77,27 @@ function RegisterForm({ onSubmit = null }) {
                     label="Full Name"
                     form={form}
                     placeholder="Nguyen Van A"
+                    disabled={form.formState.isSubmitting}
                 />
-                <InputField name="email" label="Email" form={form} placeholder="abc@gmail.com" />
-                <PasswordField name="password" label="Password" form={form} />
-                <PasswordField name="confirmPassword" label="Confirm Password" form={form} />
+                <InputField
+                    name="email"
+                    label="Email"
+                    form={form}
+                    placeholder="abc@gmail.com"
+                    disabled={form.formState.isSubmitting}
+                />
+                <PasswordField
+                    name="password"
+                    label="Password"
+                    form={form}
+                    disabled={form.formState.isSubmitting}
+                />
+                <PasswordField
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    form={form}
+                    disabled={form.formState.isSubmitting}
+                />
             </Box>
             <ButtonOrange
                 disabled={form.formState.isSubmitting}

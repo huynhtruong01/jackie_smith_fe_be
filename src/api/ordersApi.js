@@ -22,7 +22,11 @@ const ordersApi = {
         return axiosClient.post(url, data)
     },
     update(data) {
-        const url = `/orders/${data._id}`
+        const url = `/orders/${data.id}`
+        return axiosClient.put(url, data)
+    },
+    updateProductTrackingOrder(id, data) {
+        const url = `/orders/order-tracking-product/${id}`
         return axiosClient.put(url, data)
     },
     remove(id) {

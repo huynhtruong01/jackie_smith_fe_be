@@ -62,7 +62,7 @@ function DetailPage() {
                 size,
             })
 
-            console.log(cartItem)
+            // console.log(cartItem)
 
             const carts = await cartsApi.getById(user?.user?._id)
 
@@ -179,7 +179,15 @@ function DetailPage() {
                                 </Typography>
                             </Box>
                             <Box>
-                                <Typography variant="body1" mb="4px" fontWeight={600}>
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        mb: '8px',
+                                        fontWeight: 600,
+                                        fontSize: '15px',
+                                        color: grey[800],
+                                    }}
+                                >
                                     Quantity
                                 </Typography>
                                 {product?.category?.name === 'clothings' && (

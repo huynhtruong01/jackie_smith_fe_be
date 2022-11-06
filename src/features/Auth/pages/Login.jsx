@@ -71,9 +71,9 @@ function Login() {
                 autoClose: 2000,
                 theme: 'colored',
             })
+            setLoading(false)
             throw new Error(error?.response?.data?.message || error.message)
         }
-
         setLoading(false)
     }
 
@@ -88,7 +88,7 @@ function Login() {
             <Box
                 width="400px"
                 margin="auto"
-                p="16px"
+                p="24px"
                 backgroundColor="#fff"
                 boxShadow={`0 0 3px 3px ${grey[100]}`}
                 borderRadius="5px"

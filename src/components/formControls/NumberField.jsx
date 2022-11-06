@@ -1,4 +1,5 @@
 import { Box, TextField } from '@mui/material'
+import { orange } from '@mui/material/colors'
 import { Controller } from 'react-hook-form'
 
 NumberField.propTypes = {}
@@ -23,6 +24,14 @@ function NumberField({ name, label, form, placeholder = '' }) {
                         helperText={error?.message}
                         fullWidth
                         type="number"
+                        sx={{
+                            '& label.Mui-focused': {
+                                color: orange[500],
+                            },
+                            '& div.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: orange[500],
+                            },
+                        }}
                     />
                 )}
             />

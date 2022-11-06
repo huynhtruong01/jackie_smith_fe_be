@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import usersApi from '../../../api/usersApi'
+import LinearLoading from '../../../components/Loading/LinearLoading'
 import ForgotPasswordForm from '../components/ForgotPasswordForm'
 import { saveUser } from '../userTemporarySlice'
 
@@ -28,9 +29,9 @@ function ForgotPassword() {
             console.log(user)
             dispatch(saveUser(user))
 
-            setTimeout(() => navigate('/change-password-account'), 2000)
+            navigate('/change-password-account')
         } catch (error) {
-            console.log(error)
+            setLoading(false)
             throw new Error(error)
         }
 
@@ -39,28 +40,17 @@ function ForgotPassword() {
 
     return (
         <Box position="relative">
-            {loading && (
-                <LinearProgress
-                    sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        backgroundColor: orange[100],
-                        span: {
-                            backgroundColor: orange[700],
-                        },
-                    }}
-                />
-            )}
+            {loading && <LinearLoading />}
             <Box p="28px 0 50px">
                 <Box
-                    width="400px"
-                    margin="auto"
-                    p="12px"
-                    backgroundColor="#fff"
-                    boxShadow={`0 0 3px 3px ${grey[100]}`}
-                    borderRadius="5px"
+                    sx={{
+                        width: '400px',
+                        margin: 'auto',
+                        p: '24px',
+                        backgroundColor: '#fff',
+                        boxShadow: `0 0 3px 3px ${grey[100]}`,
+                        borderRadius: '5px',
+                    }}
                 >
                     <ForgotPasswordForm onSubmit={handleSubmit} />
                 </Box>

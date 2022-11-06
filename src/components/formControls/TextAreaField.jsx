@@ -1,4 +1,5 @@
 import { TextField } from '@mui/material'
+import { orange } from '@mui/material/colors'
 import { Controller } from 'react-hook-form'
 
 TextAreaField.propTypes = {}
@@ -26,6 +27,14 @@ function TextAreaField({ name, label, form, placeholder = '', disabled = false }
                     error={!!error}
                     helperText={error?.message}
                     disabled={disabled}
+                    sx={{
+                        '& label.Mui-focused': {
+                            color: orange[500],
+                        },
+                        '& div.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: orange[500],
+                        },
+                    }}
                 />
             )}
         />

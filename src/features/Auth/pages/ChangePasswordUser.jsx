@@ -1,16 +1,18 @@
 import { Box } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import usersApi from '../../../api/usersApi'
+import LinearLoading from '../../../components/Loading/LinearLoading'
 import ChangePasswordForm from '../components/ChangePasswordUserForm'
 
 ChangePasswordUser.propTypes = {}
 
 function ChangePasswordUser() {
+    const [loading, setLoading] = useState(false)
     const user = useSelector((state) => state?.userTemporary?.temporaryUser)
     const navigate = useNavigate()
 
@@ -20,6 +22,7 @@ function ChangePasswordUser() {
 
     const handleSubmit = async (values) => {
         try {
+            setLoading(true)
             const { message } = await usersApi.changePassword({
                 ...user,
                 password: values.newPassword,
@@ -37,19 +40,30 @@ function ChangePasswordUser() {
                 autoClose: 2000,
                 theme: 'colored',
             })
+            setLoading(false)
             throw new Error(error)
         }
+
+        setLoading(false)
     }
 
     return (
-        <Box p="24px 0 50px">
+        <Box
+            sx={{
+                position: 'relative',
+                p: '24px 0 50px',
+            }}
+        >
+            {loading && <LinearLoading />}
             <Box
-                width="400px"
-                margin="auto"
-                p="16px"
-                backgroundColor="#fff"
-                boxShadow={`0 0 3px 3px ${grey[100]}`}
-                borderRadius="5px"
+                sx={{
+                    width: '400px',
+                    margin: 'auto',
+                    p: '24px',
+                    backgroundColor: '#fff',
+                    boxShadow: `0 0 3px 3px ${grey[100]}`,
+                    borderRadius: '5px',
+                }}
             >
                 <ChangePasswordForm onSubmit={handleSubmit} />
             </Box>

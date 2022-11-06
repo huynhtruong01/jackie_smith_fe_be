@@ -45,14 +45,15 @@ function ChangePasswordForm({ onSubmit = null }) {
     return (
         <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
             <Typography
-                mb="24px"
-                textAlign="center"
+                component="h3"
+                variant="h5"
                 sx={{
                     textTransform: 'uppercase',
                     fontSize: '1.2rem',
                     color: orange[600],
-                    fontWeight: 500,
-                    mb: '32px',
+                    fontWeight: 600,
+                    mb: '24px',
+                    textAlign: 'center',
                 }}
             >
                 Change password
@@ -69,10 +70,11 @@ function ChangePasswordForm({ onSubmit = null }) {
             />
             <Box
                 textAlign="center"
-                mt="20px"
+                mt="8px"
                 sx={{
                     a: {
                         color: grey[500],
+                        fontSize: '14px',
                         '&:hover': {
                             color: orange[600],
                             textDecoration: 'underline',

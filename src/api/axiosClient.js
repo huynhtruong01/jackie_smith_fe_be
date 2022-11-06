@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const axiosClient = axios.create({
     baseURL: 'https://backend-jackie-smith.onrender.com/api',
+    // baseURL: 'http://localhost:5000/api',
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -28,7 +29,7 @@ axiosClient.interceptors.response.use(
     function (error) {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
-        return Promise.reject(error)
+        return Promise.reject(error.response.data.message || error.response.data.error)
     }
 )
 

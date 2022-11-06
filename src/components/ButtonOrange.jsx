@@ -5,7 +5,15 @@ import React from 'react'
 
 ButtonOrange.propTypes = {}
 
-function ButtonOrange({ text, icon, fullWidth, type = '', disabled = false, fontSize = '.9rem' }) {
+function ButtonOrange({
+    text,
+    icon,
+    fullWidth,
+    type = '',
+    disabled = false,
+    fontSize = '.9rem',
+    onClick = null,
+}) {
     const Icon = icon
 
     return (
@@ -22,6 +30,7 @@ function ButtonOrange({ text, icon, fullWidth, type = '', disabled = false, font
             startIcon={Icon ? <Icon /> : ''}
             fullWidth={fullWidth}
             disabled={disabled}
+            onClick={onClick}
         >
             {text}
         </Button>
